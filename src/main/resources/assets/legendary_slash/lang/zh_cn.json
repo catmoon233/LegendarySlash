@@ -1,0 +1,23 @@
+{
+  "message.legendary_slash.slash_arts_no_power": "§e能量不足 %s§e 无法释放 %s",
+  "message.legendary_slash.sprint_no_power": "§e能量不足 %s§e 无法位移",
+
+  "skill.legendary_slash.guard": "格挡",
+  "skill.legendary_slash.guard_space": "格挡·空中",
+
+  "message.legendary_slash.hide_model": "当前模型隐藏模式 %s",
+
+  "slash_art.legendary_slash.zj": "§4真我刀界",
+  "slash_art.legendary_slash.super_sword": "§a天穹坠星",
+  "slash_art.legendary_slash.rsa": "§6囫§a囵",
+
+  "key.legendary_slash.hide_model": "隐藏拔刀剑模型",
+  "key.legendary_slash.guard": "格挡",
+
+  "slash_art.zj": "斩破虚妄，真我无惧！",
+  "slash_art.zj_x": "剑指苍穹，心证真我！",
+  "slash_art.super_sword": "星辰陨落，天地共鸣！",
+
+  "effect.legendary_slash.guard_effect": "格挡",
+  "effect.legendary_slash.guard_effect_suc": "成功格挡"
+}

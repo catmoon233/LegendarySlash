@@ -1,0 +1,81 @@
+package net.exmo.legendary_slash.utils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import net.exmo.legendary_slash.Legendary_slash;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class ExConfig {
+   public Path configFile;
+    public JsonObject AlljsonObject;
+    public Set<Map.Entry<String, JsonElement>> entrys = new HashSet<>();
+
+    public Path getConfigFile() {
+        return configFile;
+    }
+    public JsonObject read() throws FileNotFoundException {
+        try {
+
+
+            if (Files.exists(configFile)) {
+                try (FileReader reader = new FileReader(configFile.toFile())) {
+                    Gson gson = new Gson();
+
+                    JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+
+                    return jsonObject;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }catch (Exception e){
+            Legendary_slash.LOGGER.error("Error while reading config file : not exists");
+            return null;
+        }
+        return null;
+    }
+    public Set<Map.Entry<String, JsonElement>> readEntrys() throws FileNotFoundException {
+        try {
+                return AlljsonObject.entrySet();
+        }catch (Exception e){
+            Legendary_slash.LOGGER.error("Error while reading config file : not exists");
+        }
+        return null;
+    }
+    public JsonElement readSetting(String key) {
+        try {
+
+
+            return AlljsonObject.get(key);
+        }catch (Exception e){
+            Legendary_slash.LOGGER.error("Error while reading config file : not exists");
+        }
+        return null;
+    }
+    public ExConfig(Path configFile) throws FileNotFoundException {
+        this.configFile = configFile;
+        this.AlljsonObject = read();
+    }
+    public JsonObject getAllJsonObject() {
+        return AlljsonObject;
+    }
+    public  JsonObject getJsonObjectInJson(String key,JsonObject obj) {
+        try {
+            return obj.get(key).getAsJsonObject();
+        }catch (Exception e){
+            Legendary_slash.LOGGER.error("Error while getting JsonObject from config file");
+            return null;
+        }
+    }
+
+}
