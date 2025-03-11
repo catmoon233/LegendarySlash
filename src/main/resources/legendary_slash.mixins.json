@@ -1,0 +1,36 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.exmo.legendary_slash.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "legendary_slash.refmap.json",
+  "mixins": [
+    "AnimationAddon",
+    "AttackMangerMixin",
+    "ComboCommandsAddMixin",
+    "ComboStateBugFix",
+    "DoSlashAttackMixin",
+    "DriveEntityColorMixin",
+    "JuCutEntityColorMixin",
+    "LengendBladeComboRenderMixin",
+    "RankMixin",
+    "SkillNameMixin",
+    "Slash2DamageBoost2Mixin",
+    "Slash2DamageBoostMixin",
+    "SummonedSwordEntityColorMixin",
+    "VibratingToolFunctionMixin"
+  ],
+  "client": [
+    "BladeLabelMixin",
+    "GuiMixin",
+    "HoldRenderMixin",
+    "ClientEntityMixin",
+
+    "ItemRenderMixin",
+    "MinecraftMixin",
+    "ParticleFix"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
