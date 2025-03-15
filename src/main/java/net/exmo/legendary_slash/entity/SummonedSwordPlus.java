@@ -39,7 +39,6 @@ import java.util.Map;
 public class SummonedSwordPlus extends EntityHeavyRainSwords {
     public SummonedSwordPlus(EntityType<? extends Projectile> entityTypeIn, Level worldIn) {
         super(entityTypeIn, worldIn);
-        this.noPhysics = true; // 设置投射物可以穿墙
         this.noCulling = true;
 
     }
@@ -70,13 +69,16 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BASESIZE, 1.0f);
+        this.entityData.define(Particle, true);
     }
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
 
         NBTHelper.getNBTCoupler(compound)
-          .put("BaseSize", this.getBaseSize());
+          .put("BaseSize", this.getBaseSize())
+                .put("Particle", this.getParticle())
+        ;
 
     }
 
@@ -87,16 +89,27 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
     public void setBaseSize(float value) {
         this.getEntityData().set(BASESIZE, value);
     }
+    public boolean getParticle() {
+        return this.getEntityData().get(Particle);
+    }
+
+    public void setParticle(boolean value) {
+        this.getEntityData().set(Particle, value);
+    }
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
 
         NBTHelper.getNBTCoupler(compound)
-         .get("BaseSize", this::setBaseSize);
+         .get("BaseSize", this::setBaseSize)
+                .get("Particle", this::setParticle)
+        ;
 
     }
     private static final EntityDataAccessor<Float> BASESIZE = SynchedEntityData.<Float>defineId(SummonedSwordPlus.class,
             EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> Particle = SynchedEntityData.<Boolean>defineId(SummonedSwordPlus.class,
+            EntityDataSerializers.BOOLEAN);
     @Override
     public void tick() {
         Level level = this.level();
@@ -120,6 +133,7 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
         }
             }
         super.tick();
+        if (!getParticle())return;
         for (int i = 0; i < 35; ++i) {
             if (this.level().isClientSide()) {
                 double baseSize = getBaseSize(); // 假设 baseSize 是 0.5，可以根据实际情况调整

@@ -1,10 +1,9 @@
 package net.exmo.legendary_slash.init;
 
-import com.dinzeer.legendblade.entity.SumonSwordEntity;
-import com.dinzeer.legendblade.regsitry.other.LBEntiteRegristrys;
 import com.google.common.base.CaseFormat;
 import net.exmo.legendary_slash.entity.EntityDrivePlus;
 import net.exmo.legendary_slash.entity.SummonedSwordPlus;
+import net.exmo.legendary_slash.entity.SummonSwordPROEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,8 +19,10 @@ public class LSEntityRegistry {
     private static final DeferredRegister<EntityType<?>> ENTITIES;
     public static final ResourceLocation DRIVEPLUSLoc;
     public static final ResourceLocation SUMMONEDSWORDLoc;
+    public static final ResourceLocation SUMMONEDSWORDPROLoc;
     public static EntityType<EntityDrivePlus> DRIVEPLUS;
     public static EntityType<SummonedSwordPlus> SUMMONEDSWORDPLUS;
+    public static EntityType<SummonSwordPROEntity> SUMMONEDSWORDPPROLUS;
     public LSEntityRegistry() {
     }
     public static String classToString(Class<? extends Entity> entityClass) {
@@ -34,6 +35,7 @@ public class LSEntityRegistry {
         ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MODID);
         DRIVEPLUSLoc = new ResourceLocation(MODID, classToString(EntityDrivePlus.class));
         SUMMONEDSWORDLoc = new ResourceLocation(MODID, classToString(SummonedSwordPlus.class));
+        SUMMONEDSWORDPROLoc = new ResourceLocation(MODID, classToString(SummonSwordPROEntity.class));
     }
     public static void registerEvent(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> {
@@ -53,6 +55,12 @@ public class LSEntityRegistry {
                         .build(SUMMONEDSWORDLoc.toString());
                 helper.register(SUMMONEDSWORDLoc, entity);
             }
+                {
+                    EntityType <SummonSwordPROEntity> entity = SUMMONEDSWORDPPROLUS = EntityType.Builder.of(SummonSwordPROEntity::new, MobCategory.MISC)
+                            .sized(3.0F, 3.0F).setTrackingRange(4).setUpdateInterval(20)
+                            .setCustomClientFactory(SummonSwordPROEntity::createInstance).build(SUMMONEDSWORDPROLoc.toString());
+                    helper.register(SUMMONEDSWORDPROLoc, entity);
+                }
         });
     }
 }

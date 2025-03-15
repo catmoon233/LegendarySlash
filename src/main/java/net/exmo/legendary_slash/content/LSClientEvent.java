@@ -20,6 +20,7 @@ public class LSClientEvent {
 
             event.registerEntityRenderer(LSEntityRegistry.DRIVEPLUS, EntityDrivePlusRenderer::new);
             event.registerEntityRenderer(LSEntityRegistry.SUMMONEDSWORDPLUS, SummonedSwordPlusRenderer::new);
+            event.registerEntityRenderer(LSEntityRegistry.SUMMONEDSWORDPPROLUS, SummonedSwordPlusRenderer::new);
 
 
         }

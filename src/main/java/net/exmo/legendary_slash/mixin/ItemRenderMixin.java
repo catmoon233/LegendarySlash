@@ -1,11 +1,8 @@
 package net.exmo.legendary_slash.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.ftb.mods.ftblibrary.util.client.ClientUtils;
-import dev.ftb.mods.ftbquests.FTBQuests;
-import dev.ftb.mods.ftbquests.client.ClientQuestFile;
-import dev.ftb.mods.ftbquests.client.FTBQuestsClient;
-import dev.ftb.mods.ftbquests.client.gui.quests.QuestScreen;
+
+
 import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import net.exmo.legendary_slash.content.client.LSClientData;
 import net.minecraft.client.Minecraft;
@@ -23,6 +20,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 @Mixin(ItemRenderer.class)
 public abstract class ItemRenderMixin
 {
@@ -30,18 +30,9 @@ public abstract class ItemRenderMixin
 
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     public void render(ItemStack itemStack, ItemDisplayContext itemDisplayContext, boolean p_115146_, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_115149_, int p_115150_, BakedModel p_115151_, CallbackInfo ci
-){
-        if (!LSClientData.hideModel)return;
-        if (ModList.get().isLoaded("ftbquests")){
-            if (ClientUtils.getCurrentGuiAs(QuestScreen.class) != null) {
-                return;
-            }
-//                if (ClientQuestFile.exists()){
-//                if(ClientQuestFile.INSTANCE.getQuestScreen().isPresent()){
-//              //      QuestScreen questScreen = ClientQuestFile.INSTANCE.getQuestScreen().get();
-//                }
-//            }
-        }
+) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        if (!LSClientData.isHideModel())return;
+
         if (itemStack.getItem() instanceof ItemSlashBlade slashBlade) {
 
             if (itemDisplayContext == ItemDisplayContext.GUI) {
@@ -51,4 +42,5 @@ public abstract class ItemRenderMixin
             }
         }
     }
+
 }

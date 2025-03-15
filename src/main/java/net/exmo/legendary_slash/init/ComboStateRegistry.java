@@ -24,6 +24,7 @@ import mods.flammpfeil.slashblade.util.InputCommand;
 import net.exmo.legendary_slash.Legendary_slash;
 import net.exmo.legendary_slash.content.SlashAttackHandle;
 import net.exmo.legendary_slash.content.effects.LSGuardEffect;
+import net.exmo.legendary_slash.content.slashArt.FullFireSa;
 import net.exmo.legendary_slash.entity.EntityDrivePlus;
 import net.exmo.legendary_slash.entity.SummonedSwordPlus;
 import net.exmo.legendary_slash.network.LSVARB;
@@ -62,10 +63,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static mods.flammpfeil.slashblade.SlashBlade.RegistryEvents.DriveLoc;
@@ -80,6 +78,7 @@ public class ComboStateRegistry {
     public static final RegistryObject<ComboState> RANDOM_SA ;
     public static final RegistryObject<ComboState> SUPER_SOWRD ;
     public static final RegistryObject<ComboState> ZJ ;
+    public static final RegistryObject<ComboState> FULL_FIRE ;
     static {
         COMBO_STATE = DeferredRegister.create(REGISTRY_KEY, MODID);
 
@@ -169,6 +168,7 @@ public class ComboStateRegistry {
                                                             LSEntityRegistry.SUMMONEDSWORDPLUS, level);
 
 
+                                                    ss.noPhysics = true;
                                                     ss.setOwner(player);
                                                     ss.setColor(state.getColorCode());
                                                     ss.setRoll(0);
@@ -196,6 +196,44 @@ public class ComboStateRegistry {
                                 .put(0 + 3, (entityIn) -> UserPoseOverrider.setRot(entityIn, -12, true))
                                 .put(0 + 4, (entityIn) -> UserPoseOverrider.setRot(entityIn, -12, true))
                                 .put(0 + 5, (entityIn) -> UserPoseOverrider.setRot(entityIn, 0, true))
+                                .build())
+                        .addTickAction(FallHandler::fallDecrease)
+                        .addHitEffect(StunManager::setStun)
+                        ::build);
+        FULL_FIRE = COMBO_STATE.register("full_fire",
+                ComboState.Builder.newInstance()
+                        .startAndEnd(2200, 2288)
+                        .priority(50)
+                        .speed(1.0F)
+                        .next((entity) -> SlashBlade.prefix("none"))
+                        .nextOfTimeout((entity) -> SlashBlade.prefix("none"))
+                        .motionLoc(DefaultResources.ExMotionLocation)
+                        .addTickAction(ComboState.TimeLineTickAction.getBuilder()
+                                .put(1, (entityIn) -> {
+                                    if (entityIn instanceof Player player) {
+                                        {
+                                            LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+                                            List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+                                            playerSimpleVars.get(4).setValue("slash_art.full_fire");
+                                            playerVariables.syncPlayerVariables(player);
+                                        }
+                                        Legendary_slash.queueServerWork(45, () -> {
+                                                    LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+                                                    if (player instanceof ServerPlayer) {
+                                                        List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+                                                        if (((String) playerSimpleVars.get(4).getValue()).contains("slash_art.full_fire")) {
+                                                            playerSimpleVars.get(4).setValue(playerSimpleVars.get(4).getDefaultValue());
+                                                            playerVariables.syncPlayerVariables(player);
+                                                        }
+                                                    }
+
+                                                }
+                                        );
+                                        FullFireSa.doSlash(player, 5f, 1.6f);
+                                    }
+
+
+                                })
                                 .build())
                         .addTickAction(FallHandler::fallDecrease)
                         .addHitEffect(StunManager::setStun)
@@ -242,7 +280,7 @@ public class ComboStateRegistry {
                                         LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
                                         if (player instanceof ServerPlayer) {
                                             List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
-                                            if (((String) playerSimpleVars.get(4).getValue()).contains("slash_art.zj")) {
+                                            if (((String) playerSimpleVars.get(4).getValue()).equals("slash_art.zj")) {
                                                 playerSimpleVars.get(4).setValue(playerSimpleVars.get(4).getDefaultValue());
                                                 playerVariables.syncPlayerVariables(player);
                                             }
@@ -383,7 +421,14 @@ public class ComboStateRegistry {
 
     public static void sdFunction(LivingEntity entityIn, Player player) {
         LSVARB.PlayerVariables playerVariables = entityIn.getCapability(LSVARB.PLAYER_VARIABLES_CAPABILITY, null).orElse(null);
-        if (((int) playerVariables.playerSimpleVars.get(3).getValue()) == 0) {
+        Optional<Boolean> map = player.getMainHandItem().getCapability(ItemSlashBlade.BLADESTATE).map(e -> e.isBroken());
+        if (map.isPresent() && map.get()){
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.sendSystemMessage(Component.translatable("message.legendary_slash.sword_broken"),true);
+            }
+            return;
+        }
+        if (((int) playerVariables.playerSimpleVars.get(3).getValue()) == 0 ) {
             ItemStack mainHandItem = entityIn.getMainHandItem();
             if (mainHandItem.getItem() instanceof ItemSlashBlade) {
                 playerVariables.playerSimpleVars.get(3).setValue(26);

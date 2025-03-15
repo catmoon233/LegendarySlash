@@ -287,6 +287,7 @@ public class LSVARB {
             add(new playerSimpleVar<>("guard_time", false, Integer.class, 0));
             add(new playerSimpleVar<>("guard_cooldown", false, Integer.class, 0));
             add(new playerSimpleVar<>("ex_skill_name", true, String.class, ""));
+            add(new playerSimpleVar<>("up_combo_state", true, String.class, ""));
           //  add(new playerSimpleVar<>("slash_sa_power_max", false, Integer.class, 200));
 
         }};

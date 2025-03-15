@@ -11,6 +11,7 @@ public class LSSlashArtRegistry {
     public static final RegistryObject<SlashArts> ZJ;
     public static final RegistryObject<SlashArts> RSA;
     public static final RegistryObject<SlashArts> SUPER_SWORD;
+    public static final RegistryObject<SlashArts> FULL_FIRE;
     public LSSlashArtRegistry() {
     }
 
@@ -19,6 +20,7 @@ public class LSSlashArtRegistry {
         ZJ = SLASH_ARTS.register("zj", () -> new SlashArts((e) -> ComboStateRegistry.ZJ.getId()));
         RSA = SLASH_ARTS.register("rsa", () -> new SlashArts((e) -> ComboStateRegistry.RANDOM_SA.getId()));
         SUPER_SWORD = SLASH_ARTS.register("super_sword", () -> new SlashArts((e) -> ComboStateRegistry.SUPER_SOWRD.getId()));
+        FULL_FIRE = SLASH_ARTS.register("full_fire", () -> new SlashArts((e) -> ComboStateRegistry.FULL_FIRE.getId()));
 
     }
 

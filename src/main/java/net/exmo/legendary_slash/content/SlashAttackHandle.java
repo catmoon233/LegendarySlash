@@ -191,6 +191,10 @@ public static void SAPlus(OnCharge2 onCharge2){
                     vmove(entity1,0.5,-1);
                 }
                 if (entity instanceof Player player ) {
+                    player.getCapability(ItemSlashBlade.BLADESTATE).map((state)->{
+                        state.setDamage(state.getDamage() - state.getMaxDamage()/10);
+                        return true;
+                    });
                     player.playNotifySound(SoundEvents.ANVIL_PLACE, player.getSoundSource(), 2.0F, 1.0F);
                     player.getCapability(CapabilityConcentrationRank.RANK_POINT).map((r)->{
                         r.addRankPoint(player,r.getUnitCapacity() );

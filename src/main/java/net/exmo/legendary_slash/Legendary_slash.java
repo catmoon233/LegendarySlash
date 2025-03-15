@@ -2,17 +2,21 @@ package net.exmo.legendary_slash;
 
 import com.mojang.logging.LogUtils;
 import mods.flammpfeil.slashblade.init.SBItems;
+import mods.flammpfeil.slashblade.registry.slashblade.SlashBladeDefinition;
 import net.exmo.legendary_slash.config.ClientConfigs;
 
+import net.exmo.legendary_slash.content.effects.LSArmorStart;
 import net.exmo.legendary_slash.content.effects.LSGuardEffect;
 import net.exmo.legendary_slash.content.effects.LSGuardSuccessEffect;
-import net.exmo.legendary_slash.init.ComboStateRegistry;
-import net.exmo.legendary_slash.init.LSEntityRegistry;
-import net.exmo.legendary_slash.init.LSSlashArtRegistry;
+import net.exmo.legendary_slash.init.*;
 import net.exmo.legendary_slash.network.DashMessage;
 import net.exmo.legendary_slash.network.SkillInfoMessage;
 import net.exmo.legendary_slash.render.entity.EntityDrivePlusRenderer;
 import net.exmo.legendary_slash.render.entity.SummonedSwordPlusRenderer;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -20,6 +24,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterItemDecorationsEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,10 +42,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -76,8 +80,9 @@ public class Legendary_slash {
 
         LSSlashArtRegistry.SLASH_ARTS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
-
+        modEventBus.addListener(this::dataGen);
         LSEntityRegistry.register(modEventBus);
+        LSSpecialEffectRegistry.REGISTRY_KEY2.register(modEventBus);
         modEventBus.addListener(LSEntityRegistry::registerEvent);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfigs.SPEC);
@@ -99,7 +104,16 @@ public class Legendary_slash {
     public static class effectAbout{
         public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Legendary_slash.MODID);
         public static final RegistryObject<LSGuardEffect> GuardEffect = REGISTRY.register("guard_effect", LSGuardEffect::new);
+        public static final RegistryObject<LSArmorStart> ArmorStart = REGISTRY.register("armor_start", LSArmorStart::new);
         public static final RegistryObject<LSGuardSuccessEffect> GuardEffectSuc = REGISTRY.register("guard_effect_suc", LSGuardSuccessEffect::new);
+    }
+    public  void dataGen(GatherDataEvent event) {
+        DataGenerator dataGenerator = event.getGenerator();
+        final RegistrySetBuilder bladeBuilder = new RegistrySetBuilder().add(SlashBladeDefinition.REGISTRY_KEY,
+                LSBuiltInRegistry::registerAll);
+        PackOutput packOutput = dataGenerator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        dataGenerator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(packOutput, lookupProvider, bladeBuilder, Set.of(MODID)));
     }
 
     @SubscribeEvent

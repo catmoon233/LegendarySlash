@@ -20,7 +20,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber()
+@Mod.EventBusSubscriber
 public class InputEvent {
     public static final int need = 15;
     @SubscribeEvent(priority = EventPriority.HIGHEST)

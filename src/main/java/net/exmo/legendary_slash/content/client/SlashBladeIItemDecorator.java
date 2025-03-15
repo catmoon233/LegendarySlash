@@ -12,7 +12,7 @@ public class SlashBladeIItemDecorator implements IItemDecorator {
 
     @Override
     public boolean render(GuiGraphics guiGraphics, Font font, ItemStack itemStack, int xOffset, int yOffset) {
-        if (!LSClientData.hideModel)return false;
+        if (!LSClientData.isHideModel())return false;
         if (!Screen.hasAltDown()){
             Component displayName = itemStack.getDisplayName();
             

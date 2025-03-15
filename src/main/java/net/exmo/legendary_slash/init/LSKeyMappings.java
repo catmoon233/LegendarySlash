@@ -34,9 +34,9 @@ public class LSKeyMappings {
             public void setDown(boolean isDown) {
                 super.setDown(isDown);
                 if (isDownOld != isDown && isDown) {
-                    LSClientData.hideModel = !LSClientData.hideModel;
+                    LSClientData.setHideModel(!LSClientData.isHideModel());
                     Minecraft.getInstance().player.sendSystemMessage(
-                            Component.translatable("message.legendary_slash.hide_model", LSClientData.hideModel)
+                            Component.translatable("message.legendary_slash.hide_model", LSClientData.isHideModel())
                     );
                 }
                 isDownOld = isDown;

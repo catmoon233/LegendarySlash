@@ -131,6 +131,12 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    repositories {
+        maven { // Registrate
+            url "https://maven.tterrag.com/"
+        }
+        mavenLocal()
+    }
     maven {
         name "KosmX's maven"
         url 'https://maven.kosmx.dev/'
@@ -149,15 +155,15 @@ repositories {
 }
 
 dependencies {
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:6130786")
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:6164053")
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:6259628")
-    implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
+    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:6298272")
+   // implementation fg.deobf("curse.maven:ftb-teams-forge-404468:6130786")
+   // implementation fg.deobf("curse.maven:ftb-library-forge-404465:6164053")
+   // implementation fg.deobf("curse.maven:ftb-quests-forge-289412:6259628")
+   // implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
     //光影
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     //光影
     implementation fg.deobf("curse.maven:oculus-581495:6020952")
-    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:6164820")
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     //训练假人
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:5737040")
@@ -181,7 +187,10 @@ dependencies {
     implementation fg.deobf("curse.maven:lendercataclysm-551586:6208724")
 
     implementation fg.deobf("curse.maven:lionfish-api-1001614:5922047")
-    //runtimeOnly fg.deobf("com.effmcys.yesstevemodel:yesstevemodel:2.3.2")
+
+    if (rootMod.toBoolean()) {
+        jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.20,MC1.21)")
+    }    //runtimeOnly fg.deobf("com.effmcys.yesstevemodel:yesstevemodel:2.3.2")
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")

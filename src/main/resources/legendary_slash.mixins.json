@@ -9,12 +9,14 @@
     "AttackMangerMixin",
     "ComboCommandsAddMixin",
     "ComboStateBugFix",
+    "ComboStateFix2",
     "DoSlashAttackMixin",
     "DriveEntityColorMixin",
+    "EntityStormSwordsMixin",
     "JuCutEntityColorMixin",
-    "LengendBladeComboRenderMixin",
     "RankMixin",
     "SkillNameMixin",
+    "LengendBladeComboRenderMixin",
     "Slash2DamageBoost2Mixin",
     "Slash2DamageBoostMixin",
     "SummonedSwordEntityColorMixin",
@@ -22,10 +24,9 @@
   ],
   "client": [
     "BladeLabelMixin",
+    "ClientEntityMixin",
     "GuiMixin",
     "HoldRenderMixin",
-    "ClientEntityMixin",
-
     "ItemRenderMixin",
     "MinecraftMixin",
     "ParticleFix"

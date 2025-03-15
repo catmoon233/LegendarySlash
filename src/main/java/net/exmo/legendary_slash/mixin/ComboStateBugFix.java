@@ -1,5 +1,6 @@
 package net.exmo.legendary_slash.mixin;
 
+import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.capability.slashblade.ISlashBladeState;
 import mods.flammpfeil.slashblade.capability.slashblade.SlashBladeState;
 import mods.flammpfeil.slashblade.registry.ComboStateRegistry;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public abstract class ComboStateBugFix implements ISlashBladeState {
     @Override
     public void updateComboSeq(LivingEntity entity, ResourceLocation loc) {
-        if ((ComboState)((IForgeRegistry) ComboStateRegistry.REGISTRY.get()).getValue(loc)==null)return;
+        if ((ComboState)((IForgeRegistry) ComboStateRegistry.REGISTRY.get()).getValue(loc)==null)loc = new ResourceLocation(SlashBlade.MODID,"none");
         ISlashBladeState.super.updateComboSeq(entity, loc);
     }
 
