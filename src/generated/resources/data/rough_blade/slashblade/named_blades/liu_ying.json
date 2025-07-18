@@ -1,0 +1,38 @@
+{
+  "enchantments": [
+    {
+      "id": "minecraft:sharpness",
+      "lvl": 17
+    },
+    {
+      "id": "minecraft:fire_aspect",
+      "lvl": 17
+    },
+    {
+      "id": "minecraft:unbreaking",
+      "lvl": 17
+    },
+    {
+      "id": "minecraft:power",
+      "lvl": 17
+    }
+  ],
+  "name": "rough_blade:liu_ying",
+  "properties": {
+    "attack_base": 3.0,
+    "max_damage": 180,
+    "slash_art": "rough_blade:full_fire",
+    "special_effects": [
+      "rough_blade:star_fire"
+    ],
+    "sword_type": [
+      "bewitched"
+    ]
+  },
+  "render": {
+    "carry_type": "default",
+    "model": "rough_blade:models/sam.obj",
+    "summon_sword_color": -16711936,
+    "texture": "rough_blade:textures/model/sam.png"
+  }
+}

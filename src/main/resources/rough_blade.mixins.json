@@ -1,0 +1,47 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.exmo.rough_blade.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "rough_blade.refmap.json",
+  "mixins": [
+    "AnimationAddon",
+    "AttackManger2",
+    "AttackMangerMixin",
+    "ComboCommandsAddMixin",
+    "ComboStateBugFix",
+    "ComboStateFix2",
+    "DoSlashAttackMixin",
+    "DriveEntityColorMixin",
+    "EntityStormSwordMixin",
+    "ItemBladeMixin",
+    "JuCutEntityColorMixin",
+    "LSLivingEntityMixin",
+    "LSPlayerMixin",
+    "QuestScreenMixin",
+    "RankMixin",
+    "OnBladeLeftClick",
+
+    "SkillNameMixin",
+    "Slash2DamageBoost2Mixin",
+    "Slash2DamageBoostMixin",
+    "SlashBladeDefinitionMixin",
+    "SlashBladeStateMixin",
+    "SlayerStyleArtsMixin",
+    "SummonedSwordEntityColorMixin",
+    "SummonSwordArtMixin",
+    "VibratingToolFunctionMixin"
+  ],
+  "client": [
+    "BladeLabelMixin",
+    "ClientEntityMixin",
+    "GuiMixin",
+    "HoldRenderMixin",
+    "ItemRenderMixin",
+    "MinecraftMixin",
+    "ParticleFix"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
