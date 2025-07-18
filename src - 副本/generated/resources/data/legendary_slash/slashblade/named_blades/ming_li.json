@@ -1,0 +1,35 @@
+{
+  "enchantments": [
+    {
+      "id": "minecraft:fire_protection",
+      "lvl": 0
+    },
+    {
+      "id": "minecraft:power",
+      "lvl": 2
+    },
+    {
+      "id": "minecraft:unbreaking",
+      "lvl": 1
+    }
+  ],
+  "name": "legendary_slash:ming_li",
+  "properties": {
+    "attack_base": 1.0,
+    "max_damage": 60,
+    "slash_art": "legendary_slash:zj",
+
+    "special_effects": [
+      "legendary_slash:ming_li"
+    ],
+    "sword_type": [
+      "bewitched"
+    ]
+  },
+  "render": {
+    "carry_type": "default",
+    "model": "legendary_slash:models/mingli.obj",
+    "summon_sword_color": -65536,
+    "texture": "legendary_slash:textures/model/mingli.png"
+  }
+}
