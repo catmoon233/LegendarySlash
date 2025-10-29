@@ -323,7 +323,17 @@ public class ComboStateRegistry {
                                             playerSimpleVars.get(4).setValue("slash_art.break_sky");
                                             playerVariables.syncPlayerVariables(player);
                                         }
+                                        Rough_blade.queueServerWork(45, () -> {
+                                                    LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+                                                    if (player instanceof ServerPlayer) {
+                                                        List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+                                                        if (((String) playerSimpleVars.get(4).getValue()).contains("slash_art.break_sky")) {
+                                                            playerSimpleVars.get(4).setValue(playerSimpleVars.get(4).getDefaultValue());
+                                                            playerVariables.syncPlayerVariables(player);
+                                                        }
+                                                    }
 
+                                                });
                                         TheBrokenSword.doSlash(player, 12f, 1.6f);
                                     }
 
@@ -370,7 +380,17 @@ public class ComboStateRegistry {
                                                 playerSimpleVars.get(4).setValue("slash_art.fzz");
                                                 playerVariables.syncPlayerVariables(player);
                                             }
+                                        Rough_blade.queueServerWork(45, () -> {
+                                            LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+                                            if (player instanceof ServerPlayer) {
+                                                List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+                                                if (((String) playerSimpleVars.get(4).getValue()).contains("slash_art.fzz")) {
+                                                    playerSimpleVars.get(4).setValue(playerSimpleVars.get(4).getDefaultValue());
+                                                    playerVariables.syncPlayerVariables(player);
+                                                }
+                                            }
 
+                                        });
                                             TheBrokenSword.doSlash2(player, 12f, 1.6f);
 
                                     }
@@ -720,7 +740,7 @@ public class ComboStateRegistry {
             player.playNotifySound(SoundEvents.BUCKET_EMPTY_LAVA,SoundSource.PLAYERS,1f,1f);
         }
     }
-    public static Optional<Entity> findTarget(Player sender, Entity lockedT) {
+    public static Optional<Entity> findTarget(LivingEntity sender, Entity lockedT) {
         Optional<Entity> foundTarget = Stream.of(Optional.ofNullable(lockedT),
                         RayTraceHelper
                                 .rayTrace(sender.level(), sender, sender.getEyePosition(1.0f), sender.getLookAngle(),
@@ -799,7 +819,7 @@ public class ComboStateRegistry {
                             SummonedSwordPlus ss = new SummonedSwordPlus(
                                     RBEntityRegistry.SUMMONEDSWORDPLUS, worldIn);
                             ss.getPersistentData().putFloat("redius",4f);
-
+                            ss.getPersistentData().putBoolean("mingli",true);
                             ss.noPhysics = true;
                             ss.setOwner(sender);
                             ss.setColor(state.getColorCode());

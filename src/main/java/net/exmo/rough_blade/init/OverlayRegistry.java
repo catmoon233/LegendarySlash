@@ -1,5 +1,6 @@
 package net.exmo.rough_blade.init;
 
+import net.exmo.rough_blade.content.client.SkillBarOverlay;
 import net.exmo.rough_blade.content.screen.PowerBarOverlay;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -16,6 +17,7 @@ public class OverlayRegistry {
 
 
         event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "power_overlay", PowerBarOverlay.instance);
+        event.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "skill_bar", SkillBarOverlay.INSTANCE);
 
     }
 }

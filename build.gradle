@@ -165,7 +165,8 @@ dependencies {
 dependencies {
    // implementation fg.deobf("curse.maven:freecam-by-zergatul-618947:5402097")
     implementation fg.deobf("curse.maven:emi-580555:6362010")
-    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:6731971")
+    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:7131890")
+    implementation fg.deobf("curse.maven:octo-lib-916747:6274623")
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:6130786")
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:6164053")
     implementation fg.deobf("curse.maven:ftb-quests-forge-289412:6259628")
@@ -190,7 +191,9 @@ dependencies {
     implementation fg.deobf("curse.maven:jade-324717:5876199")
     //LB
 
-    //implementation(fg.deobf("net.exmo.exmodifier:exmodifier:0.0371"))
+    //implementation(fg.deobf("net.exmo.exmodifier:exmodifier:0.03943"))
+
+
 
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${project.player_anim}")
 

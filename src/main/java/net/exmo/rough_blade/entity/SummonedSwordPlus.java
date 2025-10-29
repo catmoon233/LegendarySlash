@@ -5,6 +5,7 @@ import mods.flammpfeil.slashblade.entity.EntityHeavyRainSwords;
 import mods.flammpfeil.slashblade.entity.Projectile;
 import mods.flammpfeil.slashblade.util.KnockBacks;
 import mods.flammpfeil.slashblade.util.NBTHelper;
+import net.exmo.rough_blade.content.specialEffects.MingLiEffectHandle;
 import net.exmo.rough_blade.init.RBEntityRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -46,17 +47,22 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
 
         // 使用 NBT 记录最后一次被击中的时间
         int lastHitTick = targetEntity.getPersistentData().getInt("LastHitTick");
-        if (level.getGameTime() - lastHitTick < 10) {
+        if (level.getGameTime() - lastHitTick < 20) {
             return; // 冷却期内不重复处理
         }
 
         // 更新最后一次击中时间
         targetEntity.getPersistentData().putInt("LastHitTick", (int) level.getGameTime());
 
+
         if (targetEntity instanceof LivingEntity) {
             KnockBacks.cancel.action.accept((LivingEntity)targetEntity);
             StunManager.setStun((LivingEntity)targetEntity);
+            if (this.getPersistentData().getBoolean("mingli")){
+                MingLiEffectHandle.addMingLi((LivingEntity) targetEntity,1);
+            }
         }
+
 
         super.onHitEntity(p_213868_1_);
     }
@@ -120,15 +126,15 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
             var entities = level.getEntities(this, AABB.ofSize(this.position(), radius, radius, radius));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity livingEntity) {
-                    if (livingEntity != owner) {
+                    if (livingEntity != owner && livingEntity.getPersistentData().getInt("LastHitTick") < level.getGameTime() - 20) {
                         livingEntity.knockback(1, 1, 1);
                         StunManager.setStun(livingEntity, 20);
                         livingEntity.invulnerableTime = 0;
                         var damageSource = new DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MAGIC), this, owner);
                         livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 10));
-
+                        livingEntity.getPersistentData().putInt("LastHitTick", (int) level.getGameTime());
                         livingEntity.hurt(damageSource, (float) (owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * getDamage() + 5f ));
-                        onHitEntity(new EntityHitResult(livingEntity));
+                        //onHitEntity(new EntityHitResult(livingEntity));
 
                     }
                 }

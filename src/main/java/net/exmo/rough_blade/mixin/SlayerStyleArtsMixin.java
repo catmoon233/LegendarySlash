@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(SlayerStyleArts.class)
 public class SlayerStyleArtsMixin {
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;scale(D)Lnet/minecraft/world/phys/Vec3;", ordinal = 1), method = "onInputChange")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;scale(D)Lnet/minecraft/world/phys/Vec3;", ordinal = 0), method = "handleSprintMove")
     public Vec3 onInputChange(Vec3 instance, double p_82491_) {
 
         return instance.scale(0.3);

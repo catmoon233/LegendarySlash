@@ -5,6 +5,7 @@ import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import net.exmo.rough_blade.Config;
 import net.exmo.rough_blade.content.client.SlashBladeIItemDamageDecorator;
 import net.exmo.rough_blade.content.client.SlashBladeIItemDecorator;
+import net.exmo.rough_blade.entity.StarrySkySlash;
 import net.exmo.rough_blade.init.RBEntityRegistry;
 import net.exmo.rough_blade.render.SlashBladeRender;
 import net.exmo.rough_blade.render.entity.*;
@@ -30,6 +31,7 @@ public class RBClientEvent {
         public static void onRegisterRenderers(final EntityRenderersEvent.RegisterRenderers event) {
 
             event.registerEntityRenderer(RBEntityRegistry.DRIVEPLUS, EntityDrivePlusRenderer::new);
+            event.registerEntityRenderer(RBEntityRegistry.STARRY_SKY_SLASH, StarrySkySlashRenderer::new);
             event.registerEntityRenderer(RBEntityRegistry.SUMMONEDSWORDPLUS, SummonedSwordPlusRenderer::new);
             event.registerEntityRenderer(RBEntityRegistry.SUMMONEDSWORDPPROLUS, SummonedSwordPlusRenderer::new);
             event.registerEntityRenderer(RBEntityRegistry.TBS, TheBrokenSwordRender::new);

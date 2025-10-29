@@ -6,7 +6,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
@@ -24,12 +26,15 @@ public class RBEntityRegistry {
     public static ResourceLocation TBSLoc;
     public static final ResourceLocation SUMMONEDSWORDPROLoc;
     public static EntityType<EntityDrivePlus> DRIVEPLUS;
+
+    public static EntityType<StarrySkySlash> STARRY_SKY_SLASH;
     public static EntityType<SummonedSwordPlus> SUMMONEDSWORDPLUS;
     public static EntityType<SummonSwordPROEntity> SUMMONEDSWORDPPROLUS;
     public static EntityType<ShineCoreItemEntity> ShineCoreEntity;
     public static EntityType<ZhenLiEntity> ZLENTITY;
 
     public static final ResourceLocation ZLENTITYLoc;
+    public static final ResourceLocation STARRY_SKY_SLASH_LOC;
     public static final ResourceLocation FZBLoc;
     public static EntityType<FaZhenBase> FZB;
     public static final ResourceLocation FZULoc;
@@ -53,6 +58,7 @@ public class RBEntityRegistry {
         SUMMONEDSWORDPROLoc = new ResourceLocation(MODID, classToString(SummonSwordPROEntity.class));
         STORMSOWRDPLUSLoc = new ResourceLocation(MODID, classToString(EntityStormSwordsPlus.class));
         ShineCoreEntityLoc = new ResourceLocation(MODID, classToString(ShineCoreItemEntity.class));
+        STARRY_SKY_SLASH_LOC = new ResourceLocation(MODID, classToString(StarrySkySlash.class));
         FZBLoc = new ResourceLocation(MODID, classToString(FaZhenBase.class));
         FZULoc = new ResourceLocation(MODID, classToString(FaZhenUnder.class));
         JIGUANLoc = new ResourceLocation(MODID, classToString(LaserUnder.class));
@@ -60,6 +66,14 @@ public class RBEntityRegistry {
     }
     public static void registerEvent(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> {
+            {
+                EntityType<StarrySkySlash> entity = STARRY_SKY_SLASH = EntityType.Builder
+                        .of(StarrySkySlash::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                        .setTrackingRange(4).setUpdateInterval(20)
+                        .setCustomClientFactory(StarrySkySlash::createInstance)
+                        .build(STARRY_SKY_SLASH_LOC.toString());
+                helper.register(STARRY_SKY_SLASH_LOC, entity);
+            }
             {
                 EntityType<LaserUnder> entity = JIGUAN = EntityType.Builder
                         .of(LaserUnder::new, MobCategory.MISC).sized(0.5F, 0.5F)
@@ -137,5 +151,6 @@ public class RBEntityRegistry {
                 }
         });
     }
+
 }
 

@@ -16,12 +16,14 @@ public class RBSlashArtRegistry {
     public static final RegistryObject<SlashArts> FZZ;
     public static final RegistryObject<SlashArts> FZU;
     public static final RegistryObject<SlashArts> ZHEN_LI;
+    public static final RegistryObject<SlashArts> SkyFallenSa;
     public RBSlashArtRegistry() {
     }
 
     static {
         SLASH_ARTS = DeferredRegister.create(SlashArts.REGISTRY_KEY, MODID);
         ZJ = SLASH_ARTS.register("zj", () -> new SlashArts((e) -> ComboStateRegistry.ZJ.getId()));
+        SkyFallenSa = SLASH_ARTS.register("sky_fallen", () -> new SlashArts((e) -> ComboStateRegistry.ZJ.getId()));
         RSA = SLASH_ARTS.register("rsa", () -> new SlashArts((e) -> ComboStateRegistry.RANDOM_SA.getId()));
         SUPER_SWORD = SLASH_ARTS.register("super_sword", () -> new SlashArts((e) -> ComboStateRegistry.SUPER_SOWRD.getId()));
         FULL_FIRE = SLASH_ARTS.register("full_fire", () -> new SlashArts((e) -> ComboStateRegistry.FULL_FIRE.getId()));

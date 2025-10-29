@@ -19,7 +19,7 @@ import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class CareerWarModKeyMappings {
-	public static final KeyMapping SKILL_1 = new KeyMapping("key.rough_blade.skill_1", GLFW.GLFW_KEY_CAPS_LOCK, "key.categories.rough_blade") {
+	public static final KeyMapping SKILL_1 = new KeyMapping("key.rough_blade.skill_1", GLFW.GLFW_KEY_TAB, "key.categories.rough_blade") {
 		private boolean isDownOld = false;
 
 		@Override
@@ -32,7 +32,7 @@ public class CareerWarModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping SKILL_2 = new KeyMapping("key.rough_blade.skill_2", GLFW.GLFW_KEY_UNKNOWN, "key.categories.rough_blade") {
+	public static final KeyMapping SKILL_2 = new KeyMapping("key.rough_blade.skill_2", GLFW.GLFW_KEY_Z, "key.categories.rough_blade") {
 		private boolean isDownOld = false;
 
 		@Override
@@ -45,7 +45,7 @@ public class CareerWarModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping SKILL_3 = new KeyMapping("key.rough_blade.skill_3", GLFW.GLFW_KEY_UNKNOWN, "key.categories.rough_blade") {
+	public static final KeyMapping SKILL_3 = new KeyMapping("key.rough_blade.skill_3", GLFW.GLFW_KEY_X, "key.categories.rough_blade") {
 		private boolean isDownOld = false;
 
 		@Override
@@ -58,7 +58,7 @@ public class CareerWarModKeyMappings {
 			isDownOld = isDown;
 		}
 	};
-	public static final KeyMapping SKILL_4 = new KeyMapping("key.rough_blade.skill_4", GLFW.GLFW_KEY_UNKNOWN, "key.categories.rough_blade") {
+	public static final KeyMapping SKILL_4 = new KeyMapping("key.rough_blade.skill_4", GLFW.GLFW_KEY_C, "key.categories.rough_blade") {
 		private boolean isDownOld = false;
 
 		@Override

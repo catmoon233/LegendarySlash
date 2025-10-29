@@ -1,4 +1,4 @@
-package net.exmo.rough_blade.mixin;
+package net.exmo.rough_blade.mixin.power;
 
 import mods.flammpfeil.slashblade.ability.SummonedSwordArts;
 

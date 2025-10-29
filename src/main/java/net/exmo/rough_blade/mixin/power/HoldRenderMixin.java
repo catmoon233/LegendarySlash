@@ -1,4 +1,4 @@
-package net.exmo.rough_blade.mixin;
+package net.exmo.rough_blade.mixin.power;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mods.flammpfeil.slashblade.client.renderer.model.obj.WavefrontObject;

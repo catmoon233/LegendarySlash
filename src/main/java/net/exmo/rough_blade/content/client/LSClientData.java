@@ -16,7 +16,7 @@ public class LSClientData {
     public static boolean isHideModel() {
         if (ModList.get().isLoaded("ftbquests")) {
             if (ClientUtils.getCurrentGuiAs(QuestScreen.class)!=null){
-                return true;
+                return false;
             }
         }
         return hideModel;

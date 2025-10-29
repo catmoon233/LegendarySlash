@@ -1,4 +1,4 @@
-package net.exmo.rough_blade.mixin;
+package net.exmo.rough_blade.mixin.guard;
 
 import net.exmo.rough_blade.Rough_blade;
 import net.minecraft.client.Minecraft;

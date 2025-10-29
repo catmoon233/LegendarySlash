@@ -1,4 +1,4 @@
-package net.exmo.rough_blade.mixin;
+package net.exmo.rough_blade.mixin.mingli;
 
 import mods.flammpfeil.slashblade.SlashBlade;
 import mods.flammpfeil.slashblade.capability.slashblade.SlashBladeState;

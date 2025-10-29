@@ -1,4 +1,4 @@
-package net.exmo.rough_blade.mixin;
+package net.exmo.rough_blade.mixin.compat;
 
 //import dev.ftb.mods.ftblibrary.ui.BaseScreen;
 //import dev.ftb.mods.ftbquests.client.ClientQuestFile;

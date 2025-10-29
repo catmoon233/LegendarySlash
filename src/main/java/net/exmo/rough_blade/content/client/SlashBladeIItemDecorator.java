@@ -19,6 +19,7 @@ public class SlashBladeIItemDecorator implements IItemDecorator {
         if (Screen.hasShiftDown() || OLD_TEXT_RENDER_ALAWAYS.get() && !NEW_TEXT_RENDER_ALAWAYS.get())return false;
         if (!LSClientData.isHideModel())return false;
         if (!Screen.hasAltDown()){
+
             // 添加：在物品图标周围绘制耐久边框，颜色根据耐久度从绿到红变化
 
 
@@ -51,6 +52,8 @@ public class SlashBladeIItemDecorator implements IItemDecorator {
             guiGraphics.pose().popPose();
 
             return true;
+        }else {
+
         }
         return false;
     }

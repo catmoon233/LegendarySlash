@@ -61,7 +61,6 @@ public class PowerBarOverlay implements IGuiOverlay {
         int maxMana = (int) player.getAttributeValue(RBAttribute.Max_Slash_Power.get());
         int mana = (int) player.getCapability(LSVARB.PLAYER_VARIABLES_CAPABILITY).orElse(null).playerSimpleVars.get(0).getValue();
         int barX, barY;
-        //TODO: cache these?
         int configOffsetY = ClientConfigs.MANA_BAR_Y_OFFSET.get();
         int configOffsetX = ClientConfigs.MANA_BAR_X_OFFSET.get();
         Anchor anchor = ClientConfigs.MANA_BAR_ANCHOR.get();
