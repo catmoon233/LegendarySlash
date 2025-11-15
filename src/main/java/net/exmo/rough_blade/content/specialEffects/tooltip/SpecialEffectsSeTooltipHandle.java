@@ -17,9 +17,14 @@ public class SpecialEffectsSeTooltipHandle {
 
     @SubscribeEvent
     public static void reload(AddReloadListenerEvent event){
+        specialEffectsSeTooltip.clear();
         specialEffectsSeTooltip.put(
                 RBSpecialEffectRegistry.StarrySky.getId(),
                 "rough_blade_se_tooltip_starry_sky"
+        );
+        specialEffectsSeTooltip.put(
+                RBSpecialEffectRegistry.The_Waning_Moon.getId(),
+                "rough_blade_se_tooltip_the_waning_moon"
         );
     }
     public static boolean hasTranslation(ResourceLocation se){

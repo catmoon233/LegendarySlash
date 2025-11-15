@@ -11,18 +11,25 @@
   "message.rough_blade.hide_model": "当前模型隐藏模式 %s",
 
   "slash_art.rough_blade.zj": "§4真我刀界",
+  "slash_art.rough_blade.the_infinity_moon": "§l无限月光",
   "slash_art.rough_blade.super_sword": "§a天穹坠星",
   "slash_art.rough_blade.sky_fallen": "§b天星坠落",
   "slash_art.rough_blade.rsa": "§6囫§a囵",
   "slash_art.rough_blade.break_sky": "§4剑陨九天",
   "slash_art.rough_blade.fzu": "§a天§8空§5陨§6落",
+  "slash_art.rough_blade.star_track_attack": "§b星河之舞",
+  "slash_art.rough_blade.star_track_attack_ex": "§b星河之舞 §4极",
+  "slash_art.fallen_star":"坠落吧，繁星！",
   "slash_art.rough_blade.full_fire": "§c星火§6燃烧",
 
-  "rough_blade_se_tooltip_starry_sky": "§b星空被动效果§r\n§e攻击combo：§r每次普通攻击（平A）释放一道流淌星空的刀河；连续攻击时，在3秒内每第三次攻击会触发强化刀河，范围扩大50%，伤害提升30%。\n§6攻击特效：§r攻击时释放一道青蓝色（§b§l刀光轨迹§r）向前流动，伴有白色（§f星星粒子§r）和黄色（§e闪烁星光§r）粒子效果，轨迹呈扇形扩散，视觉上如星河奔流，并附加清脆刀鸣音效。\n§5特殊效果：§r刀河击中敌人有15%几率施加“星空印记”（可叠加3层）；叠满后印记爆炸，对周围3格内敌人造成额外魔法伤害（基于攻击力的50%）和2秒失明效果。",
+  "rough_blade_se_tooltip_starry_sky": "§b星空被动效果§r\n§e攻击combo：§r每次普通攻击（平A）释放一道流淌星空的刀河；连续攻击时，释放COMBOA EX攻击会触发强化刀河，范围扩大250%，伤害提升700%\n§5特殊效果：§r刀河击中敌人有15%几率施加“星空印记”（可叠加5层,每层叠加10%易伤）；叠满后印记爆炸，对周围3格内敌人造成额外魔法伤害（基于攻击力的520%）和2秒失明效果",
+  "rough_blade_se_tooltip_the_waning_moon": "§7描述:§a无限轮回直至湮灭",
   "se.rough_blade.star_fire": "§c星火 X",
   "se.rough_blade.ming_li": "§4命§6定§7之§8理",
   "se.rough_blade.starry_sky": "§9§l星§1河",
-
+  "se.rough_blade.the_waning_moon": "§6落幕残月",
+  "rough_blade_slash_type_fate": "§a§l命运",
+  "rough_blade_slash_type_truth": "§a§4真理",
   "key.rough_blade.hide_model": "隐藏拔刀剑模型",
   "key.rough_blade.guard": "格挡",
   "adv.slashblade.shooting": "发射幻影剑",
@@ -31,6 +38,7 @@
   "slash_art.zj_x": "剑指苍穹，心证真我！",
   "slash_art.break_sky": "破灭！剑陨九天",
   "slash_art.super_sword": "星辰陨落，天地共鸣！",
+  "slash_art.the_infinity_moon": "月光轮回",
   "slash_art.full_fire": "烈火焚尽，星火燃破！",
   "slash_art.fzz": "剑雨！落！",
   "slash_art.zhenli": "命运与真理交织之时茧——命理。即映吾之道途，命轮回转，得见真解。道纹重叠溯理，回应烂柯之过往，驰向终焉之境。",
@@ -42,9 +50,13 @@
   "effect.rough_blade.ming_li_effect": "§4命理",
   "effect.rough_blade.zhen_li_effect": "§e真理",
   "effect.rough_blade.guard_effect_suc": "成功格挡",
+  "effect.rough_blade.star_imprint": "§5星空印记",
+  "effect.rough_blade.the_infinity_moon": "§l无限月光",
 
   "item.rough_blade.liu_ying": "§a萤",
   "item.rough_blade.the_flare_star": "§f§l耀星",
+  "item.rough_blade.starry_galaxy": "§b§l「星河」§f繁星",
+  "item.rough_blade.the_waning_moon": "§b§l「长夜」§4残月",
   "item.rough_blade.ming_li": "§4§n命•理",
 
   "key.categories.rough_blade": "拔刀剑重锋附属-无锋道",
@@ -59,7 +71,7 @@
   "tooltip.rough_blade.shine_core.1": "§7承载刀魂: ",
   "tooltip.rough_blade.empty" : "空",
   "tooltip.rough_blade.shine_art.rough_blade:shine_dash_art": "§6觉醒 「§a破晓之荧」",
-  "tooltip.rough_blade.mingli": "§4你无法窥视命运",
+  "tooltip.rough_blade.mingli": "§4你无法窥视命理",
 
   "itemGroup.rough_blade_tab": "§6无锋道",
 
@@ -67,8 +79,7 @@
   "key.rough_blade.skill_1": "释放一技能",
   "key.rough_blade.skill_2": "释放二技能",
   "key.rough_blade.skill_3": "释放三技能",
-  "key.rough_blade.skill_4": "释放四技能"
-
-
-
+  "key.rough_blade.skill_4": "释放四技能",
+  "adv.slashblade.feather_falling": "羽落",
+  "adv.slashblade.soul_speed": "灵魂疾行"
 }

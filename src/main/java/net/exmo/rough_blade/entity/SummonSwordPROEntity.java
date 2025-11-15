@@ -141,7 +141,11 @@ public class SummonSwordPROEntity extends SummonedSwordPlus {
 
 
                 int radius = 5;
-                level.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 5, 0.5, 0.5, 0.5, 0.5);
+                if (getParticle()) {
+                    level.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 3, 0.5, 0.5, 0.5, 0.5);
+                }else {
+                    level.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY(), this.getZ(), 8, 0.5, 0.5, 0.5, 0.5);
+                }
                 if (getOwner() instanceof LivingEntity owner) {
                     var entities = level.getEntities(this, AABB.ofSize(this.position(), radius, radius, radius));
                     for (Entity entity : entities) {
@@ -295,18 +299,14 @@ public class SummonSwordPROEntity extends SummonedSwordPlus {
 
     @Override
     protected void onHitBlock(BlockHitResult blockraytraceresult) {
-        {
 
-
-        }
-        super.onHitBlock(blockraytraceresult);
 
     }
 
     @Override
     protected void onHitEntity(EntityHitResult result)
     {
-    super.onHitEntity( result);
+ //   super.onHitEntity( result);
 //        if (tickCount < getDelay())return;
 //        if (isBlock()) return;
 //        Entity targetEntity = result.getEntity();

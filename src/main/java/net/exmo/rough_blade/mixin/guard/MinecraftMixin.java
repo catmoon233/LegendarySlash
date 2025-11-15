@@ -36,5 +36,8 @@ public class MinecraftMixin {
             }
 
         }
-    }
+        if (player.hasEffect(Rough_blade.effectAbout.TheInfinityMoonEffect.get())) {
+            cir.setReturnValue(true);
+        }
+        }
 }

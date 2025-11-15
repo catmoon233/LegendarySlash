@@ -21,7 +21,11 @@ public class SkillNameMixin {
     private static void grantCriterion(ServerPlayer player, ResourceLocation resourcelocation, CallbackInfo ci) {
         String[] split = resourcelocation.toString().split("/");
         if (split.length < 2) return;
-        SkillInfoMessage msg = new SkillInfoMessage(Component.translatable("adv.slashblade."+split[1]));
+        final var p237116 = "adv.slashblade." + split[1];
+        if (p237116.contains("adv.slashblade.feather_falling")){
+            return;
+        }
+        SkillInfoMessage msg = new SkillInfoMessage(Component.translatable(p237116));
         Rough_blade.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), msg);
     }
 }

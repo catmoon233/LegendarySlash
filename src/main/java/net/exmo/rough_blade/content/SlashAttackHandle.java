@@ -14,6 +14,7 @@ import net.exmo.rough_blade.init.RBSlashArtRegistry;
 import net.exmo.rough_blade.network.DashMessage;
 import net.exmo.rough_blade.network.LSVARB;
 import net.exmo.rough_blade.network.SkillInfoMessage;
+import net.exmo.rough_blade.utils.ExUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -33,16 +34,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+
+import java.util.List;
 
 import static net.exmo.rough_blade.init.ComboStateRegistry.doBigDriveSlash;
 
 @Mod.EventBusSubscriber
 public class SlashAttackHandle {
     private static int tick = 0;
+    @SubscribeEvent
+    public static void playerJoin(PlayerEvent.PlayerLoggedInEvent event){
+        Player player = event.getEntity();
+        LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+        List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+        playerSimpleVars.get(4).setValue("");
+        playerVariables.syncPlayerVariables(player);
+    }
     @SubscribeEvent
     public static void tick(TickEvent.ServerTickEvent event) {
         tick++;
@@ -103,6 +115,7 @@ public class SlashAttackHandle {
             persistentData.putInt("boost3", persistentData.getInt("boost3") - 1);
         }
     }
+
     @SubscribeEvent
     public static void attackHealPower(SlashBladeEvent.HitEvent event) {
         if (event.getUser() instanceof Player player) {

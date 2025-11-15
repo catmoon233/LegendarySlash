@@ -13,6 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -21,11 +24,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.awt.*;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static net.exmo.rough_blade.Rough_blade.MODID;
 import static net.exmo.rough_blade.init.ComboStateRegistry.findTarget;
@@ -36,6 +42,16 @@ public class StarrySkySE extends SpecialEffectEx {
     public StarrySkySE(int requestLevel) {
         super(requestLevel);
     }
+
+    @SubscribeEvent
+    public static void DOA(TickEvent.PlayerTickEvent event){
+        if (event.player.getMainHandItem().getItem() instanceof ItemSlashBlade ){
+            if (hasSpecialEffect(event.player.getMainHandItem(), RBSpecialEffectRegistry.StarrySky.getId())) {
+                event.player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60, 0, false, false));
+            }
+        }
+    }
+    public static Predicate<Float> isPower = (f) -> f == 40f || f ==30f;
     @SubscribeEvent
     public static void slash(SlashBladeEvent.DoSlashEvent event){
         if (SpecialEffectEx.hasSpecialEffect(event.getBlade(), RBSpecialEffectRegistry.StarrySky.getId())) {
@@ -52,17 +68,30 @@ public class StarrySkySE extends SpecialEffectEx {
                 return result.getLocation();
             });
             StarrySkySlash ss = new StarrySkySlash(RBEntityRegistry.STARRY_SKY_SLASH, level);
-            Vec3 pos = sender.getEyePosition(1.0F).add(VectorHelper.getVectorForRotation(0.0F, sender.getViewYRot(0.0F) + 90.0F));
-            ss.setPos(pos.x, pos.y, pos.z);
+            Vec3 pos = sender.getEyePosition(1.0F).add(VectorHelper.getVectorForRotation(0.0F, sender.getViewYRot(0.0F) ));
 
-            ss.setDamage((double) slashBladeState.getRefine() * 0.1f * (slashBladeState.getProudSoulCount() * 0.01 + sender.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+
+            boolean test = isPower.test(event.getRoll());
+            ss.setPos(pos.x, pos.y + (test? 1 : 0), pos.z);
+            if (test){
+                ss.setDamage((double) slashBladeState.getRefine() * 0.035 * (slashBladeState.getProudSoulCount() * 0.0003 ));
+
+            }else {
+                ss.setDamage((double) slashBladeState.getRefine() * 0.05f * (slashBladeState.getProudSoulCount() * 0.0003 ));
+            }
             Vec3 dir = targetPos.subtract(pos).normalize();
-            ss.shoot(dir.x, dir.y, dir.z, 1.5F, 0.0F);
-            ss.setBaseSize(0.03f);
+            if (test) {
+                ss.shoot(dir.x, dir.y, dir.z, 0.75f, 0.0F);
+
+            }else {
+                ss.shoot(dir.x, dir.y, dir.z, 1.5f, 0.0F);
+            }
+                ss.setBaseSize(0.03f);
             ss.setOwner(sender);
-            ss.setRoll(event.getRoll());
-            ss.setColor(1644912);
+            ss.setRotationRoll(event.getRoll());
+            ss.setColor(Color.blue.getRGB());
             ss.setLifetime(200);
+          //  ss.setPierce((byte) 10);
             worldIn.addFreshEntity(ss);
 
             if (sender instanceof ServerPlayer serverPlayer) {
@@ -75,7 +104,7 @@ public class StarrySkySE extends SpecialEffectEx {
     public static void tooltipRender(RenderTooltipEvent.Color event){
         if (event.getItemStack().getItem() instanceof ItemSlashBlade ){
             if (SpecialEffectEx.hasSpecialEffect(event.getItemStack(), RBSpecialEffectRegistry.StarrySky.getId())) {
-                event.setBackground(1644912);
+                event.setBackground(Color.blue.getRGB());
             }
         }
     }

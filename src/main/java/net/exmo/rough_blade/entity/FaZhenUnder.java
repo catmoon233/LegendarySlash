@@ -112,7 +112,7 @@ public class FaZhenUnder extends Projectile {
     public void tick() {
         entityData.set(TICK,  getTick()+1);
         Level level = level();
-        if (getTick()==600){
+        if (getTick()==650){
             LaserUnder sword = new LaserUnder(RBEntityRegistry.JIGUAN, level);
 
             //   sword.setDamage(damage);
@@ -124,7 +124,7 @@ public class FaZhenUnder extends Projectile {
             level.addFreshEntity(sword);
 
         }
-        if (!level.isClientSide) if (this.getTick()>700)discard();
+        if (!level.isClientSide) if (this.getTick()>850)discard();
         super.tick();
         setXRot(entityData.get(RX));
         setYRot(entityData.get(RY));

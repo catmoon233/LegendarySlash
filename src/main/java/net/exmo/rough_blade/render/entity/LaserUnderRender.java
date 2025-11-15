@@ -75,8 +75,12 @@ public class LaserUnderRender<T extends LaserUnder> extends EntityRenderer<T> {
 
                 // matrixStack.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
                  model = BladeModelManager.getInstance().getModel(Rough_blade.prefix("models/huan.obj"));
+
                 BladeRenderState.setCol(Color.WHITE.getRGB(), false);
                 BladeRenderState.renderOverridedLuminous(ItemStack.EMPTY, model, "huan", getTextureLocation(entity),
+                        matrixStack, bufferIn, packedLightIn);
+                model = BladeModelManager.getInstance().getModel(Rough_blade.prefix("models/laser.obj"));
+                BladeRenderState.renderOverridedLuminous(ItemStack.EMPTY, model, "ss", getTextureLocation(entity),
                         matrixStack, bufferIn, packedLightIn);
             }
         }

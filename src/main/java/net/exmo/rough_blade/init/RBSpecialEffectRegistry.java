@@ -5,6 +5,7 @@ import net.exmo.rough_blade.Rough_blade;
 import net.exmo.rough_blade.content.specialEffects.MingLiSe;
 import net.exmo.rough_blade.content.specialEffects.StarFireSE;
 import net.exmo.rough_blade.content.specialEffects.StarrySkySE;
+import net.exmo.rough_blade.content.specialEffects.TheWaningMoonSe;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -13,6 +14,7 @@ public class RBSpecialEffectRegistry {
     public static final RegistryObject<SpecialEffect> STAR_FIRE;
     public static final RegistryObject<SpecialEffect> MingLi;
     public static final RegistryObject<SpecialEffect> StarrySky;
+    public static final RegistryObject<SpecialEffect> The_Waning_Moon;
     public RBSpecialEffectRegistry() {
     }
 
@@ -21,5 +23,6 @@ public class RBSpecialEffectRegistry {
         STAR_FIRE = REGISTRY_KEY2.register("star_fire", StarFireSE::new);
         MingLi = REGISTRY_KEY2.register("ming_li",MingLiSe::new );
         StarrySky = REGISTRY_KEY2.register("starry_sky", () -> new StarrySkySE(0));
+        The_Waning_Moon = REGISTRY_KEY2.register("the_waning_moon", () -> new TheWaningMoonSe(0));
     }
 }

@@ -49,33 +49,25 @@ public class MingLiLayer<T extends LivingEntity, M extends EntityModel<T>> exten
      * @param maxDistance 视线追踪的最大距离。
      * @return 最远非空气方块的位置，如果未找到则返回最大距离时的位置。
      */
-    public static BlockPos findFarthestNonAirBlock(LivingEntity entity, double maxDistance) {
+    public static Vec3 findFarthestNonAirBlock(LivingEntity entity, double maxDistance) {
         Level world = entity.level();
         Vec3 eyePosition = entity.getEyePosition(1.0F); // 当前时刻玩家眼睛的位置
         Vec3 lookVec = entity.getViewVector(1.0F).scale(maxDistance); // 玩家视线方向的单位向量，乘以最大距离
         Vec3 endPos = eyePosition.add(lookVec); // 眼睛位置加上视线向量得到终点位置
 
-        BlockHitResult result = world.clip(new ClipContext(eyePosition, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
 
-        if (result.getType() == HitResult.Type.BLOCK) {
-            BlockPos hitPos = result.getBlockPos();
-            Block block = world.getBlockState(hitPos).getBlock();
-            if (block != Blocks.AIR) {
-                return hitPos;
-            }
-        }
 
         // 如果没有找到非空气方块，则返回最大距离时的方块位置
-        return BlockPos.containing(endPos);
+        return endPos;
     }
     public void render(PoseStack matrixStack, MultiBufferSource Buffer, int PackedLight, T entity, float LimbSwing, float LimbSwingAmount, float partialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         if (shouldRender(entity)) {
-            Vec3 eyePosition = findFarthestNonAirBlock(entity,-1.2).getCenter();
-            var move = entity.getEyePosition().subtract(eyePosition).scale(10);
+            Vec3 eyePosition = findFarthestNonAirBlock(entity,-30);
+            var move = entity.getEyePosition().subtract(eyePosition).scale(1);
             try (MSAutoCloser msac = MSAutoCloser.pushMatrix(matrixStack)) {
 
-                matrixStack.mulPose(Axis.YN.rotationDegrees(Mth.rotLerp(partialTicks, entity.yHeadRotO, entity.getYHeadRot())));
-                matrixStack.mulPose(Axis.ZP.rotationDegrees(Mth.rotLerp(partialTicks, entity.xRotO, entity.getXRot())));
+                matrixStack.mulPose(Axis.YN.rotationDegrees(Mth.rotLerp(partialTicks, entity.getYHeadRot(), entity.yHeadRotO)));
+               // matrixStack.mulPose(Axis.XN.rotationDegrees(Mth.rotLerp(partialTicks, entity.xRotO, entity.getXRot())));
 
 
 

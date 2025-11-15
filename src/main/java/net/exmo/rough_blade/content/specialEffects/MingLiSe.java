@@ -120,7 +120,7 @@ public class MingLiSe extends SpecialEffectEx {
             if (hasSpecialEffect(event.getItemStack(), RBSpecialEffectRegistry.MingLi.getId())){
                 ExSkillHelper exSkillHelper = ExSkillHelper.of(event.getItemStack());
                 if (exSkillHelper.getSkillsSize()==0) {
-                    exSkillHelper.addSkill(CareerSkillInstant.of(SkillHandle.getSkill("ZhenLiV"),1),true);
+                 //   exSkillHelper.addSkill(CareerSkillInstant.of(SkillHandle.getSkill("ZhenLiV"),1),true);
                     exSkillHelper.addSkill(CareerSkillInstant.of(SkillHandle.getSkill("ZhenLiSa"),1),true);
                 }
 

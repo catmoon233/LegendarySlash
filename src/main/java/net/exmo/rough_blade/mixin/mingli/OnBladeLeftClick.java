@@ -29,7 +29,7 @@ import static net.exmo.rough_blade.init.ComboStateRegistry.summonSword;
 
 @Mixin(ItemSlashBlade.class)
 public abstract class OnBladeLeftClick {
-    @Shadow public abstract int getDamage(ItemStack stack);
+     @Shadow public abstract int getDamage(ItemStack stack);
 
     @Shadow public abstract void setDamage(ItemStack stack, int damage);
 

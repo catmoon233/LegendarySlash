@@ -42,6 +42,7 @@ public class ExSkillOverlay {
     public static Map<Long,Component> lastUpdate = new HashMap<>();
 	public static float renderH = 0;
 	public static String old_r = "";
+	static Pattern pattern = Pattern.compile("-(.*?)-");
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGuiEvent.Pre event) {
 		int w = event.getWindow().getGuiScaledWidth();
@@ -126,16 +127,16 @@ public class ExSkillOverlay {
 
 		if (Config.COMBO_SCREEN.get()) {
 			AtomicInteger line = new AtomicInteger();
-// 将 lastUpdate 转换为按时间排序的列表
+			// 将 lastUpdate 转换为按时间排序的列表
+
 
 			lastUpdate.entrySet().stream()
 					.sorted(Map.Entry.comparingByKey()) // 按时间戳排序
 					.forEach(entry -> {
 						//long k = entry.getKey();
-
 						String text = entry.getValue().getString();
-						Pattern pattern = Pattern.compile("-(.*?)-");
 						Matcher matcher = pattern.matcher(text);
+
 
 
 						String toWrite;

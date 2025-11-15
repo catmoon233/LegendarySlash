@@ -39,7 +39,7 @@ public class FaZhenBaseRender<T extends FaZhenBase> extends EntityRenderer<T> {
         try (MSAutoCloser msac = MSAutoCloser.pushMatrix(matrixStack)) {
             // 修改旋转速度计算：基于tickCount和scale实现曲速效果
             // 当scale较小时（初始阶段）转速快，随着scale增大转速逐渐变慢
-            float scale = Math.min(0.01f,entity.tickCount*0.0005f);
+            float scale = Math.min(0.01f,entity.tickCount*0.001f);
             float speedFactor = 3.0f * (1.0f - scale / 0.01f) +1f; // 通过scale比例调整速度系数
             float rotationAngle = (entity.tickCount ) * speedFactor * 2.0f;
             Entity hits = entity.getHitEntity();

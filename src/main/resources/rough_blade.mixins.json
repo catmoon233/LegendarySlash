@@ -29,8 +29,8 @@
     "power.SummonSwordArtMixin",
     "shineart.ItemBladeMixin",
     "shineart.LSLivingEntityMixin",
-    "shineart.SlashBladeDefinitionMixin"
-
+    "shineart.SlashBladeDefinitionMixin",
+    "star.SlashEntityMixin"
   ],
   "client": [
     "compat.ParticleFix",
@@ -41,9 +41,9 @@
     "textblade.GuiMixin",
     "textblade.ItemRenderMixin",
     "trails.entity.ClientLevelMixin",
+    "trails.entity.EntityMixin",
     "trails.particle.ParticleEngineMixin",
-    "trails.particle.ParticleMixin",
-    "trails.entity.EntityMixin"
+    "trails.particle.ParticleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

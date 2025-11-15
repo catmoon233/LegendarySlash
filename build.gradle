@@ -163,9 +163,10 @@ dependencies {
  //   runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
 }
 dependencies {
-   // implementation fg.deobf("curse.maven:freecam-by-zergatul-618947:5402097")
+    implementation fg.deobf("curse.maven:accelerated-rendering-1314021:7196153")
+    implementation fg.deobf("curse.maven:freecam-by-zergatul-618947:5402097")
     implementation fg.deobf("curse.maven:emi-580555:6362010")
-    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:7131890")
+    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:7194599")
     implementation fg.deobf("curse.maven:octo-lib-916747:6274623")
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:6130786")
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:6164053")
@@ -174,9 +175,9 @@ dependencies {
     implementation fg.deobf("curse.maven:ldlib-626676:6407755")
     implementation fg.deobf("curse.maven:photon-871522:6373238")
     //光影
-  //  implementation fg.deobf("curse.maven:embeddium-908741:5681725")
+    implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     //光影
-   // implementation fg.deobf("curse.maven:oculus-581495:6020952")
+    implementation fg.deobf("curse.maven:oculus-581495:6020952")
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     //训练假人
     implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:5737040")

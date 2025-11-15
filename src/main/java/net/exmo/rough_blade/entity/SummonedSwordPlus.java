@@ -42,29 +42,29 @@ public class SummonedSwordPlus extends EntityHeavyRainSwords {
 
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
-        Entity targetEntity = p_213868_1_.getEntity();
-        Level level = this.level();
-
-        // 使用 NBT 记录最后一次被击中的时间
-        int lastHitTick = targetEntity.getPersistentData().getInt("LastHitTick");
-        if (level.getGameTime() - lastHitTick < 20) {
-            return; // 冷却期内不重复处理
-        }
-
-        // 更新最后一次击中时间
-        targetEntity.getPersistentData().putInt("LastHitTick", (int) level.getGameTime());
-
-
-        if (targetEntity instanceof LivingEntity) {
-            KnockBacks.cancel.action.accept((LivingEntity)targetEntity);
-            StunManager.setStun((LivingEntity)targetEntity);
-            if (this.getPersistentData().getBoolean("mingli")){
-                MingLiEffectHandle.addMingLi((LivingEntity) targetEntity,1);
-            }
-        }
-
-
-        super.onHitEntity(p_213868_1_);
+//        Entity targetEntity = p_213868_1_.getEntity();
+//        Level level = this.level();
+//
+//        // 使用 NBT 记录最后一次被击中的时间
+//        int lastHitTick = targetEntity.getPersistentData().getInt("LastHitTick");
+//        if (level.getGameTime() - lastHitTick < 20) {
+//            return; // 冷却期内不重复处理
+//        }
+//
+//        // 更新最后一次击中时间
+//        targetEntity.getPersistentData().putInt("LastHitTick", (int) level.getGameTime());
+//
+//
+//        if (targetEntity instanceof LivingEntity) {
+//            KnockBacks.cancel.action.accept((LivingEntity)targetEntity);
+//            StunManager.setStun((LivingEntity)targetEntity);
+//            if (this.getPersistentData().getBoolean("mingli")){
+//                MingLiEffectHandle.addMingLi((LivingEntity) targetEntity,1);
+//            }
+//        }
+//
+//
+//        super.onHitEntity(p_213868_1_);
     }
 
     @Override

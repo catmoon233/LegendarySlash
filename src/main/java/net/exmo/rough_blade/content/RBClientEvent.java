@@ -5,13 +5,15 @@ import mods.flammpfeil.slashblade.item.ItemSlashBlade;
 import net.exmo.rough_blade.Config;
 import net.exmo.rough_blade.content.client.SlashBladeIItemDamageDecorator;
 import net.exmo.rough_blade.content.client.SlashBladeIItemDecorator;
-import net.exmo.rough_blade.entity.StarrySkySlash;
+import net.exmo.rough_blade.content.particles.StarParticle;
 import net.exmo.rough_blade.init.RBEntityRegistry;
+import net.exmo.rough_blade.init.RBParticlesTypeRegistry;
 import net.exmo.rough_blade.render.SlashBladeRender;
 import net.exmo.rough_blade.render.entity.*;
 import net.exmo.rough_blade.render.other.AngelWingsLayer;
 import net.exmo.rough_blade.render.other.AngelWingsModel;
 import net.exmo.rough_blade.render.other.MingLiLayer;
+import net.exmo.rough_blade.render.other.StarryGalaxyLiLayer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterItemDecorationsEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,11 +30,20 @@ import static net.exmo.rough_blade.Rough_blade.MODID;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RBClientEvent {
+
+    @SubscribeEvent
+    public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(RBParticlesTypeRegistry.STAR_PARTICLE.get(), StarParticle::factory);
+
+    }
+
         @SubscribeEvent
         public static void onRegisterRenderers(final EntityRenderersEvent.RegisterRenderers event) {
 
             event.registerEntityRenderer(RBEntityRegistry.DRIVEPLUS, EntityDrivePlusRenderer::new);
-            event.registerEntityRenderer(RBEntityRegistry.STARRY_SKY_SLASH, StarrySkySlashRenderer::new);
+            event.registerEntityRenderer(RBEntityRegistry.STARRY_SKY_SLASH, EmptyRender::new);
+            event.registerEntityRenderer(RBEntityRegistry.FALLEN_STAR_ENTITY, EmptyRender::new);
+            event.registerEntityRenderer(RBEntityRegistry.TRACK_TAIL_ENTITY, EmptyRender::new);
             event.registerEntityRenderer(RBEntityRegistry.SUMMONEDSWORDPLUS, SummonedSwordPlusRenderer::new);
             event.registerEntityRenderer(RBEntityRegistry.SUMMONEDSWORDPPROLUS, SummonedSwordPlusRenderer::new);
             event.registerEntityRenderer(RBEntityRegistry.TBS, TheBrokenSwordRender::new);
@@ -84,6 +96,7 @@ public class RBClientEvent {
         if (render instanceof LivingEntityRenderer livingRenderer) {
             livingRenderer.addLayer(new AngelWingsLayer<>(livingRenderer));
             livingRenderer.addLayer(new MingLiLayer<>(livingRenderer));
+            livingRenderer.addLayer(new StarryGalaxyLiLayer(livingRenderer));
 
 
         }

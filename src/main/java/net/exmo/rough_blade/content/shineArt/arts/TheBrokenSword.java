@@ -74,7 +74,7 @@ public class TheBrokenSword {
             // sword.setNoGravity(true);
             sword.setInvulnerable(true);
             sword.setColor(Color.GREEN.getRGB());
-            sword.setPos(livingEntity.getX(), livingEntity.getY()+50, livingEntity.getZ());
+            sword.setPos(livingEntity.getX(), livingEntity.getY()+25, livingEntity.getZ());
             //sword.startRiding(livingEntity, true);
 
             sword.setOwner(livingEntity);

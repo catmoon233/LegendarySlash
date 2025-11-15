@@ -174,7 +174,7 @@ public class SkillBarOverlay  implements IGuiOverlay {
         // 计算技能栏位置（居中）
         int totalWidth = skills.size() * (SCALED_SIZE + SPACING) - SPACING;
         int startX = (screenWidth - totalWidth) / 2;
-        int startY = screenHeight - 60; // 离底部60像素
+        int startY = screenHeight - 68; // 离底部68像素
         //	CareerWarMod.LOGGER.debug(career.LocalName + " rendered" + career.Skills.size());
         var map = new HashMap<Integer,String>();
 

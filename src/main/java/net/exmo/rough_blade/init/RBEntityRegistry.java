@@ -28,13 +28,17 @@ public class RBEntityRegistry {
     public static EntityType<EntityDrivePlus> DRIVEPLUS;
 
     public static EntityType<StarrySkySlash> STARRY_SKY_SLASH;
+    public static EntityType<FallenStarEntity> FALLEN_STAR_ENTITY;
     public static EntityType<SummonedSwordPlus> SUMMONEDSWORDPLUS;
     public static EntityType<SummonSwordPROEntity> SUMMONEDSWORDPPROLUS;
     public static EntityType<ShineCoreItemEntity> ShineCoreEntity;
     public static EntityType<ZhenLiEntity> ZLENTITY;
+    public static EntityType<TrackTailEntity> TRACK_TAIL_ENTITY;
 
     public static final ResourceLocation ZLENTITYLoc;
     public static final ResourceLocation STARRY_SKY_SLASH_LOC;
+    public static final ResourceLocation FALLEN_STAR_ENTITY_LOC;
+    public static final ResourceLocation TRACK_TAIL_ENTITY_LOC;
     public static final ResourceLocation FZBLoc;
     public static EntityType<FaZhenBase> FZB;
     public static final ResourceLocation FZULoc;
@@ -63,12 +67,30 @@ public class RBEntityRegistry {
         FZULoc = new ResourceLocation(MODID, classToString(FaZhenUnder.class));
         JIGUANLoc = new ResourceLocation(MODID, classToString(LaserUnder.class));
         ZLENTITYLoc = new ResourceLocation(MODID, classToString(ZhenLiEntity.class));
+        FALLEN_STAR_ENTITY_LOC = new ResourceLocation(MODID, classToString(FallenStarEntity.class));
+        TRACK_TAIL_ENTITY_LOC =  new ResourceLocation(MODID, classToString(TrackTailEntity.class));
     }
     public static void registerEvent(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> {
             {
+                EntityType<TrackTailEntity> entity = TRACK_TAIL_ENTITY = EntityType.Builder
+                        .of(TrackTailEntity::new, MobCategory.MISC).sized(1F, 1F)
+                        .setTrackingRange(4).setUpdateInterval(20)
+                        .setCustomClientFactory(TrackTailEntity::createInstance)
+                        .build(TRACK_TAIL_ENTITY_LOC.toString());
+                helper.register(TRACK_TAIL_ENTITY_LOC, entity);
+            }
+            {
+                EntityType<FallenStarEntity> entity = FALLEN_STAR_ENTITY = EntityType.Builder
+                        .of(FallenStarEntity::new, MobCategory.MISC).sized(1F, 1F)
+                        .setTrackingRange(4).setUpdateInterval(20)
+                        .setCustomClientFactory(FallenStarEntity::createInstance)
+                        .build(FALLEN_STAR_ENTITY_LOC.toString());
+                helper.register(FALLEN_STAR_ENTITY_LOC, entity);
+            }
+            {
                 EntityType<StarrySkySlash> entity = STARRY_SKY_SLASH = EntityType.Builder
-                        .of(StarrySkySlash::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                        .of(StarrySkySlash::new, MobCategory.MISC).sized(1F, 1F)
                         .setTrackingRange(4).setUpdateInterval(20)
                         .setCustomClientFactory(StarrySkySlash::createInstance)
                         .build(STARRY_SKY_SLASH_LOC.toString());

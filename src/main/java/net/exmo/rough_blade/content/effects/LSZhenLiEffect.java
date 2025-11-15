@@ -98,7 +98,7 @@ public class LSZhenLiEffect extends MobEffect {
 //                        sender.teleportTo(newPosition.x(), position.y(), newPosition.z());
 //                        find = true;
 //                        sender.lookAt(EntityAnchorArgument.Anchor.EYES, position.add(0,1.2,0));
-//                        AttackManager.doSlash(sender, 0);
+//                        AttackManager.fallenStar(sender, 0);
 //                        ComboStateRegistry.doBigDriveSlash3(sender, worldIn, 0,  3);
 //
 //                        PathGenerator.generatePath(position, newPosition).forEach(vec3 -> {

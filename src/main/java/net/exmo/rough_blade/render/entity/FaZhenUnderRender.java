@@ -33,6 +33,7 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
     private static final int PHASE_RISE = 300;       // 上升阶段持续时间
     private static final int PHASE_EXPAND = 160;      // 扩展阶段
     private static final int PHASE_ACTIVATE = 80;    // 激活阶段
+    private static final int PHASE_RETRACT = 20;     // 收回阶段
 
     public FaZhenUnderRender(EntityRendererProvider.Context context) {
         super(context);
@@ -43,7 +44,7 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
                        MultiBufferSource buffer, int packedLight) {
 
         int tickCount = entity.tickCount;
-        float totalProgress = Mth.clamp(tickCount / (float)CHARGE_DURATION, 0, 1);
+        float totalProgress = Mth.clamp(tickCount / (float)(CHARGE_DURATION + PHASE_RETRACT), 0, 1);
 
         try (MSAutoCloser msac = MSAutoCloser.pushMatrix(matrixStack)) {
             // 基础旋转
@@ -55,6 +56,7 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
             renderExpansionPhase(entity, matrixStack, buffer, packedLight, tickCount, partialTicks);
             renderActivationPhase(entity, matrixStack, buffer, packedLight, tickCount, partialTicks);
             renderFinalCharge(entity, matrixStack, buffer, packedLight, tickCount, partialTicks);
+            renderRetractPhase(entity, matrixStack, buffer, packedLight, tickCount, partialTicks);
         }
     }
 
@@ -182,6 +184,8 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
                                    int packedLight, int tickCount, float partialTicks) {
 
         if(tickCount < CHARGE_DURATION - 40) return;
+        // 在收回阶段不渲染此部分
+        if (tickCount >= CHARGE_DURATION) return;
         float chargeProgress = (tickCount - (CHARGE_DURATION - 40)) / 40f;
 
         matrixStack.pushPose();
@@ -197,32 +201,27 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
                     ItemStack.EMPTY, coreModel, "huan", getTextureLocation(entity),
                     matrixStack, buffer, packedLight);
 
-            // 修改后的四个竖直旋转的核心法阵
+            // 修改后的四个横向旋转的核心法阵
             for(int i = 0; i < 4; i++) {
                 matrixStack.pushPose();
                 try {
-                    // 统一旋转轴点（先平移后旋转）
-                    matrixStack.translate(0, 0.5f, 0); // 调整轴心高度
-                    
-                    // 环绕分布（每个法阵间隔90度）
-                    float baseAngle = tickCount * 3.0f; // 基础旋转速度
+                    // 横向旋转法阵 - 围绕中心旋转
+                    float baseAngle = tickCount * 5.0f; // 基础旋转速度
                     matrixStack.mulPose(Axis.YP.rotationDegrees(90 * i + baseAngle));
                     
                     // 位置偏移（沿法阵半径分布）
-                    float radius = 18f * Mth.lerp(chargeProgress, 0.5f, 1.0f);
-                    matrixStack.translate(0, 0, radius);
+                    float radius = 24F * Mth.lerp(chargeProgress, 0.5f, 1.0f);
+                    matrixStack.translate(radius, 0, 0);
                     
-                    // 竖直方向旋转（调整X轴旋转角度为80度形成倾斜）
-                    matrixStack.mulPose(Axis.XP.rotationDegrees(80));
+                    // 保持法阵水平（无X轴旋转）
+                    // 动态缩放
+                    float scale = Mth.lerp(chargeProgress, 0.3f, 1.1f)/1.2f;
+                    matrixStack.scale(scale * 0.3f, scale * 0.3f, scale * 0.3f);
                     
-                    // 动态缩放（调整缩放曲线）
-                    float scale = Mth.lerp(chargeProgress, 0.3f, 1.1f)/1.2f; // 改为线性插值实现稳定增长到最大值
-                    matrixStack.scale(scale * 0.2f, scale * 0.2f, scale * 0.2f);
+                    // 添加自转动画（绕法阵自身中心旋转）
+                    matrixStack.mulPose(Axis.YP.rotationDegrees(tickCount * 3.0f * (i % 2 == 0 ? 1 : -1)));
                     
-                    // 添加自转动画
-                    matrixStack.mulPose(Axis.YP.rotationDegrees(tickCount * 5.0f * (i % 2 == 0 ? 1 : -1)));
-                    
-                    // 透明度控制（使用缓动函数）
+                    // 透明度控制
                     float alpha = Mth.clamp(Mth.sqrt(chargeProgress) * 1.2f, 0, 1);
                     
                     // 设置法阵颜色（使用层级颜色）
@@ -238,12 +237,135 @@ public class FaZhenUnderRender<T extends FaZhenUnder> extends EntityRenderer<T> 
                 }
             }
 
+            // 添加更多向下不断放大的环
+            renderExpandingDownwardRings(entity, matrixStack, buffer, packedLight, chargeProgress, 0);
+            
             // 添加粒子效果（需配合粒子系统）
             if(tickCount % 2 == 0) {
                 spawnChargeParticles(entity, matrixStack, chargeProgress);
             }
         } finally {
             matrixStack.popPose();
+        }
+    }
+
+    // 渲染向下不断放大的环
+    private void renderExpandingDownwardRings(T entity, PoseStack matrixStack, MultiBufferSource buffer,
+                                              int packedLight, float chargeProgress, float retractProgress) {
+        // 创建多个向下扩散的环
+        for (int i = 0; i < 5; i++) {
+            matrixStack.pushPose();
+            try {
+                // 计算环的位置和缩放
+                float ringProgress = Mth.frac(chargeProgress * 2.0f + i * 0.2f); // 环之间的时间偏移
+                float scale = ringProgress * 0.5f; // 最大放大3倍
+                
+                // 向下移动效果
+                float downwardMovement = ringProgress * 2.0f;
+                
+                // 如果是收回阶段，则反向运动
+                if (retractProgress > 0) {
+                    scale *= (1.0f - retractProgress);
+                    downwardMovement *= (1.0f - retractProgress);
+                }
+                
+                matrixStack.translate(0, -downwardMovement, 0);
+                matrixStack.scale(scale, scale * 0.1f, scale);
+                
+                // 设置颜色和透明度
+                Color ringColor = Color.getHSBColor(0.6f + ringProgress * 0.2f, 0.8f, 0.9f);
+                float alpha = (1.0f - ringProgress) * 0.7f;
+                if (retractProgress > 0) {
+                    alpha *= (1.0f - retractProgress);
+                }
+                
+                BladeRenderState.setCol(ringColor.getRGB(), alpha < 0.9f);
+                WavefrontObject ringModel = BladeModelManager.getInstance().getModel(INNER_RING);
+                BladeRenderState.renderOverridedLuminous(
+                        ItemStack.EMPTY, ringModel, "huan", getTextureLocation(entity),
+                        matrixStack, buffer, packedLight);
+            } finally {
+                matrixStack.popPose();
+            }
+        }
+    }
+
+    // 阵法收回阶段
+    private void renderRetractPhase(T entity, PoseStack matrixStack, MultiBufferSource buffer,
+                                   int packedLight, int tickCount, float partialTicks) {
+        // 只在收回阶段渲染
+        if (tickCount < CHARGE_DURATION) return;
+        
+        // 收回阶段持续20tick
+        float retractProgress = Mth.clamp((tickCount - CHARGE_DURATION) / (float)PHASE_RETRACT, 0, 1);
+        float invRetractProgress = 1.0f - retractProgress;
+
+        // 渲染逐渐消失的核心法阵
+        for(int i = 0; i < 4; i++) {
+            matrixStack.pushPose();
+            try {
+                // 统一旋转轴点
+                matrixStack.translate(0, 0.5f * invRetractProgress, 0);
+                
+                // 环绕分布
+                float baseAngle = tickCount * 3.0f;
+                matrixStack.mulPose(Axis.YP.rotationDegrees(90 * i + baseAngle));
+                
+                // 位置偏移
+                float radius = 24F * invRetractProgress;
+                matrixStack.translate(0, 0, radius);
+                
+                // 竖直方向旋转
+                matrixStack.mulPose(Axis.XP.rotationDegrees(80));
+                
+                // 动态缩放
+                float scale = invRetractProgress * 0.8f;
+                matrixStack.scale(scale * 0.1f, scale * 0.1f, scale * 0.1f);
+                
+                // 添加自转动画
+                matrixStack.mulPose(Axis.YP.rotationDegrees(tickCount * 5.0f * (i % 2 == 0 ? 1 : -1)));
+                
+                // 设置法阵颜色和透明度
+                BladeRenderState.setCol(getLayerColor(i, invRetractProgress).getRGB(), retractProgress > 0.1f);
+                
+                // 渲染核心法阵
+                WavefrontObject model = BladeModelManager.getInstance().getModel(CORE_CIRCLE);
+                BladeRenderState.renderOverridedLuminous(
+                        ItemStack.EMPTY, model, "Circle", getTextureLocation(entity),
+                        matrixStack, buffer, packedLight);
+            } finally {
+                matrixStack.popPose();
+            }
+        }
+        
+        // 渲染逐渐消失的环
+        renderRetractingRings(entity, matrixStack, buffer, packedLight, retractProgress);
+    }
+    
+    // 收回阶段的环渲染
+    private void renderRetractingRings(T entity, PoseStack matrixStack, MultiBufferSource buffer,
+                                      int packedLight, float retractProgress) {
+        for (int i = 0; i < 5; i++) {
+            matrixStack.pushPose();
+            try {
+                float ringProgress = Mth.frac(retractProgress * 2.0f + i * 0.2f);
+                float scale = (1.0f - ringProgress) * 3.0f;
+                float downwardMovement = (1.0f - ringProgress) * 2.0f;
+                
+                matrixStack.translate(0, -downwardMovement, 0);
+                matrixStack.scale(scale, scale * 0.1f, scale);
+                
+                Color ringColor = Color.getHSBColor(0.6f + ringProgress * 0.2f, 0.8f, 0.9f);
+                float alpha = ringProgress * 0.7f;
+                
+                BladeRenderState.setCol(ringColor.getRGB(), alpha < 0.9f);
+                WavefrontObject ringModel = BladeModelManager.getInstance().getModel(INNER_RING);
+                BladeRenderState.renderOverridedLuminous(
+                        ItemStack.EMPTY, ringModel, "huan", getTextureLocation(entity),
+                        matrixStack, buffer, packedLight);
+            } finally {
+                matrixStack.popPose();
+            }
         }
     }
 

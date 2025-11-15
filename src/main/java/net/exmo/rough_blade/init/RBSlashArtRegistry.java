@@ -16,7 +16,10 @@ public class RBSlashArtRegistry {
     public static final RegistryObject<SlashArts> FZZ;
     public static final RegistryObject<SlashArts> FZU;
     public static final RegistryObject<SlashArts> ZHEN_LI;
+    public static final RegistryObject<SlashArts> STAR_TRACK_ATTACK;
+    public static final RegistryObject<SlashArts> STAR_TRACK_ATTACK_EX;
     public static final RegistryObject<SlashArts> SkyFallenSa;
+    public static final RegistryObject<SlashArts> THE_INFINITY_MOON;
     public RBSlashArtRegistry() {
     }
 
@@ -31,6 +34,9 @@ public class RBSlashArtRegistry {
         FZZ = SLASH_ARTS.register("fzz", () -> new SlashArts((e) -> ComboStateRegistry.FZZ.getId()));
         ZHEN_LI = SLASH_ARTS.register("zhen_li", () -> new SlashArts((e) -> ComboStateRegistry.Zhen_Li.getId()));
         FZU = SLASH_ARTS.register("fzu", () -> new SlashArts((e) -> ComboStateRegistry.FZU.getId()));
+        STAR_TRACK_ATTACK = SLASH_ARTS.register("star_track_attack", () -> new SlashArts((e) -> ComboStateRegistry.STAR_TRACK_ATTACK_CB.getId()));
+        STAR_TRACK_ATTACK_EX = SLASH_ARTS.register("star_track_attack_ex", () -> new SlashArts((e) -> ComboStateRegistry.STAR_TRACK_ATTACK_CB_EX.getId()));
+        THE_INFINITY_MOON = SLASH_ARTS.register("the_infinity_moon", () -> new SlashArts((e) -> ComboStateRegistry.The_Infinity_Moon.getId()));
 
     }
 

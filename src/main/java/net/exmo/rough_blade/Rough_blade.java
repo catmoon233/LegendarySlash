@@ -145,6 +145,7 @@ public class    Rough_blade {
         modEventBus.addListener(this::dataGen);
         RBEntityRegistry.register(modEventBus);
         RBSpecialEffectRegistry.REGISTRY_KEY2.register(modEventBus);
+        RBParticlesTypeRegistry.PARTICLES.register(modEventBus);
         modEventBus.addListener(RBEntityRegistry::registerEvent);
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -172,6 +173,8 @@ public class    Rough_blade {
         public static final RegistryObject<LSGuardSuccessEffect> GuardEffectSuc = REGISTRY.register("guard_effect_suc", LSGuardSuccessEffect::new);
         public static final RegistryObject<LSMingYunEffect> MingYunEffect = REGISTRY.register("ming_li_effect", LSMingYunEffect::new);
         public static final RegistryObject<LSZhenLiEffect> ZhenLiEffect = REGISTRY.register("zhen_li_effect", LSZhenLiEffect::new);
+        public static final RegistryObject<StarImprintEffect> StarImprintEffect = REGISTRY.register("star_imprint", net.exmo.rough_blade.content.effects.StarImprintEffect::new);
+        public static final RegistryObject<TheInfinityMoonEffect> TheInfinityMoonEffect = REGISTRY.register("the_infinity_moon", net.exmo.rough_blade.content.effects.TheInfinityMoonEffect::new);
     }
     public  void dataGen(GatherDataEvent event) {
         DataGenerator dataGenerator = event.getGenerator();

@@ -22,8 +22,11 @@ import mods.flammpfeil.slashblade.util.*;
 import net.exmo.rough_blade.Rough_blade;
 import net.exmo.rough_blade.content.SlashAttackHandle;
 import net.exmo.rough_blade.content.effects.LSGuardEffect;
+import net.exmo.rough_blade.content.effects.TheInfinityMoonEffect;
 import net.exmo.rough_blade.content.shineArt.arts.TheBrokenSword;
 import net.exmo.rough_blade.content.slashArt.FullFireSa;
+import net.exmo.rough_blade.content.slashArt.StarTrackAttack;
+import net.exmo.rough_blade.content.slashArt.TheInfinityMoonSA;
 import net.exmo.rough_blade.entity.EntityDrivePlus;
 import net.exmo.rough_blade.entity.SummonedSwordPlus;
 import net.exmo.rough_blade.network.LSVARB;
@@ -81,12 +84,15 @@ public class ComboStateRegistry {
     public static final RegistryObject<ComboState> BREAK_SKY ;
     public static final RegistryObject<ComboState> FZZ ;
     public static final RegistryObject<ComboState> FZU;
+    public static final RegistryObject<ComboState> STAR_TRACK_ATTACK_CB;
+    public static final RegistryObject<ComboState> STAR_TRACK_ATTACK_CB_EX;
 
     public static final RegistryObject<ComboState> GuardML ;
 
     public static final RegistryObject<ComboState> MLZhan ;
     public static final RegistryObject<ComboState> COMBO_A4_Plus ;
     public static final RegistryObject<ComboState> Zhen_Li ;
+    public static final RegistryObject<ComboState> The_Infinity_Moon ;
     static {
 
         COMBO_STATE = DeferredRegister.create(REGISTRY_KEY, MODID);
@@ -343,6 +349,60 @@ public class ComboStateRegistry {
                         .addTickAction(FallHandler::fallDecrease)
                         .addHitEffect(StunManager::setStun)
                         ::build);
+        STAR_TRACK_ATTACK_CB = COMBO_STATE.register("star_track_attack",
+                ComboState.Builder.newInstance()
+                        .startAndEnd(900, 1013)
+                        .priority(50)
+                        .speed(1.0F)
+                        .next((entity) -> SlashBlade.prefix("none"))
+                        .nextOfTimeout((entity) -> SlashBlade.prefix("none"))
+                        .motionLoc(DefaultResources.ExMotionLocation)
+                        .addTickAction(ComboState.TimeLineTickAction.getBuilder()
+                                .put(1, (entityIn) -> {
+                                    if (entityIn instanceof Player player) {
+                                        StarTrackAttack.doSlash(player,false);
+                                    }
+                                })
+                                .build())
+                        .addTickAction(FallHandler::fallDecrease)
+                        .addHitEffect(StunManager::setStun)
+                        ::build);
+        The_Infinity_Moon = COMBO_STATE.register("the_infinity_moon",
+                ComboState.Builder.newInstance()
+                        .startAndEnd(900, 1013)
+                        .priority(50)
+                        .speed(1.0F)
+                        .next((entity) -> SlashBlade.prefix("none"))
+                        .nextOfTimeout((entity) -> SlashBlade.prefix("none"))
+                        .motionLoc(DefaultResources.ExMotionLocation)
+                        .addTickAction(ComboState.TimeLineTickAction.getBuilder()
+                                .put(1, (entityIn) -> {
+                                    if (entityIn instanceof Player player) {
+                                        TheInfinityMoonSA.use(player);
+                                    }
+                                })
+                                .build())
+                        .addTickAction(FallHandler::fallDecrease)
+                        .addHitEffect(StunManager::setStun)
+                        ::build);
+        STAR_TRACK_ATTACK_CB_EX = COMBO_STATE.register("star_track_attack_ex",
+                ComboState.Builder.newInstance()
+                        .startAndEnd(900, 1013)
+                        .priority(50)
+                        .speed(1.0F)
+                        .next((entity) -> SlashBlade.prefix("none"))
+                        .nextOfTimeout((entity) -> SlashBlade.prefix("none"))
+                        .motionLoc(DefaultResources.ExMotionLocation)
+                        .addTickAction(ComboState.TimeLineTickAction.getBuilder()
+                                .put(1, (entityIn) -> {
+                                    if (entityIn instanceof Player player) {
+                                        StarTrackAttack.doSlash(player,true);
+                                    }
+                                })
+                                .build())
+                        .addTickAction(FallHandler::fallDecrease)
+                        .addHitEffect(StunManager::setStun)
+                        ::build);
         ZD = COMBO_STATE.register("zd",
                 ComboState.Builder.newInstance()
                         .startAndEnd(1, 10)
@@ -433,6 +493,17 @@ public class ComboStateRegistry {
                                                                     LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
                                                                     List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
                                                                     playerSimpleVars.get(4).setValue("slash_art.fzu2");
+                                                                    playerVariables.syncPlayerVariables(player);
+                                                                }
+                                                    }
+                                            );
+
+                                        Rough_blade.queueServerWork(
+                                                    200,()->{
+                                                                {
+                                                                    LSVARB.PlayerVariables playerVariables = ExUtils.getPlayerVariables(player);
+                                                                    List<LSVARB.playerSimpleVar<?>> playerSimpleVars = playerVariables.playerSimpleVars;
+                                                                    playerSimpleVars.get(4).setValue("");
                                                                     playerVariables.syncPlayerVariables(player);
                                                                 }
                                                     }
@@ -744,7 +815,7 @@ public class ComboStateRegistry {
         Optional<Entity> foundTarget = Stream.of(Optional.ofNullable(lockedT),
                         RayTraceHelper
                                 .rayTrace(sender.level(), sender, sender.getEyePosition(1.0f), sender.getLookAngle(),
-                                        12, 12, (e) -> true)
+                                        16, 16, (e) -> true)
                                 .filter(r -> r.getType() == HitResult.Type.ENTITY).filter(r -> {
                                     EntityHitResult er = (EntityHitResult) r;
                                     Entity target = er.getEntity();
@@ -961,7 +1032,7 @@ public class ComboStateRegistry {
                 entityIn.addEffect(new MobEffectInstance(Rough_blade.effectAbout.GuardEffect.get(), 10, 0, false, false, false));
                 entityIn.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 4, false, false, false));
                 player.playNotifySound(SoundEvents.IRON_DOOR_OPEN, player.getSoundSource(), 2.0F, 1.0F);
-               // AttackManager.doSlash(player,0);
+               // AttackManager.fallenStar(player,0);
                 if (!player.onGround()) {
                     if (player instanceof ServerPlayer) SlashAttackHandle.sendSkillInfoMessage((ServerPlayer) player, Component.translatable("skill.rough_blade.guard_space"));
 

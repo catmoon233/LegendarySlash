@@ -18,7 +18,9 @@ public record SkillInfoMessage(Component skill_name) {
 
         }
         public static void handle(SkillInfoMessage msg, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> ExSkillOverlay.lastUpdate.put( System.currentTimeMillis(),msg.skill_name()));
+            ctx.get().enqueueWork(() ->{
+                ExSkillOverlay.lastUpdate.put( System.currentTimeMillis(),msg.skill_name());
+            });
             ctx.get().setPacketHandled(true);
         }
         public static SkillInfoMessage decode(FriendlyByteBuf buffer) {

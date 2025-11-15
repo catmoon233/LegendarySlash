@@ -149,7 +149,7 @@ public class LaserUnder extends Projectile {
         if (tickCount1 >80){
             {
                 final Vec3 _center = new Vec3(this.getX(), this.getY(), this.getZ());
-                List<Entity> _entfound = this.level().getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(minY*4), a -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
+                List<Entity> _entfound = this.level().getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(minY*30), a -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
                 for (Entity entityiterator : _entfound) {
                     if (entityiterator != this.getOwner()||entityiterator!=this) {
                         if (entityiterator instanceof LivingEntity) {

@@ -153,9 +153,9 @@ public abstract class DoSlashAttackMixin {
                         if (value != null) {
                             AttackManager.playQuickSheathSoundAction(user);
 //                            ComboState.releaseActionQuickCharge(user,elapsed);
-//                            Drive.doSlash(player, 0.0F, 10, Vec3.ZERO, false, (double)1.5F, 2.0F);
+//                            Drive.fallenStar(player, 0.0F, 10, Vec3.ZERO, false, (double)1.5F, 2.0F);
 //                            doArts(type, user);
-                            //          AttackManager.doSlash(user, 0.0F, Vec3.ZERO, false, false, 2.0F);
+                            //          AttackManager.fallenStar(user, 0.0F, Vec3.ZERO, false, false, 2.0F);
 
                             if (mainHandItem.getItem() instanceof ItemSlashBlade itemSlashBlade) {
                                 Level level = player.level();
