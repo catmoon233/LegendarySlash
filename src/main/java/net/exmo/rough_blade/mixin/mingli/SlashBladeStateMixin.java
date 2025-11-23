@@ -9,11 +9,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Collection;
 import java.util.List;
 
 @Mixin(SlashBladeState.class)
 public abstract class SlashBladeStateMixin {
-    @Shadow public abstract List<ResourceLocation> getSpecialEffects();
+
+
+    @Shadow public abstract Collection<ResourceLocation> getSpecialEffects();
 
     @Inject(method = "setBroken", at = @At("HEAD"),remap = false, cancellable = true)
     public void setBroken(boolean broken, CallbackInfo ci) {

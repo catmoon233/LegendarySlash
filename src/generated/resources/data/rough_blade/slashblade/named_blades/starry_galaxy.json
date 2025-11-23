@@ -12,7 +12,9 @@
     "slash_art": "rough_blade:star_track_attack",
 
     "special_effects": [
-      "rough_blade:starry_sky"
+      "rough_blade:starry_sky",
+      "rough_blade:the_star_power",
+      "rough_blade:the_weak_power"
     ],
     "sword_type": [
       "bewitched"

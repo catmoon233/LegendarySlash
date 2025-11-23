@@ -2,14 +2,14 @@
   "enchantments": [
     {
       "id": "minecraft:power",
-      "lvl": 0
+      "lvl": 1
     }
   ],
   "name": "rough_blade:the_flare_star",
   "properties": {
     "attack_base": 5.2,
     "max_damage": 520,
-    "slash_art": "rough_blade:sky_fallen",
+    "slash_art": "rough_blade:star_track_attack",
 
     "special_effects": [
       "rough_blade:starry_sky"

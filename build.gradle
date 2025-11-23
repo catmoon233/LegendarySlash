@@ -166,7 +166,7 @@ dependencies {
     implementation fg.deobf("curse.maven:accelerated-rendering-1314021:7196153")
     implementation fg.deobf("curse.maven:freecam-by-zergatul-618947:5402097")
     implementation fg.deobf("curse.maven:emi-580555:6362010")
-    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:7194599")
+    implementation fg.deobf("curse.maven:slashblade-resharped-1022428:7234815")
     implementation fg.deobf("curse.maven:octo-lib-916747:6274623")
     implementation fg.deobf("curse.maven:ftb-teams-forge-404468:6130786")
     implementation fg.deobf("curse.maven:ftb-library-forge-404465:6164053")

@@ -26,6 +26,8 @@ public class SpecialEffectsSeTooltipHandle {
                 RBSpecialEffectRegistry.The_Waning_Moon.getId(),
                 "rough_blade_se_tooltip_the_waning_moon"
         );
+        add(RBSpecialEffectRegistry.The_Weak_Power.getId());
+        add(RBSpecialEffectRegistry.The_Star_Power.getId());
     }
     public static boolean hasTranslation(ResourceLocation se){
         return specialEffectsSeTooltip.containsKey(se);
@@ -35,5 +37,8 @@ public class SpecialEffectsSeTooltipHandle {
     }
     public static List<Component> getTooltip(ResourceLocation se){
        return TooltipUtil.sprit(Component.translatable(SpecialEffectsSeTooltipHandle.getTranslation(se)));
+    }
+    public static void add(ResourceLocation se){
+        specialEffectsSeTooltip.put(se, "rough_blade_se_tooltip_"+se.getPath());
     }
 }
