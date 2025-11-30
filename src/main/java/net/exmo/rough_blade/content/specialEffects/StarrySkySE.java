@@ -74,10 +74,10 @@ public class StarrySkySE extends SpecialEffectEx {
             boolean test = isPower.test(event.getRoll());
             ss.setPos(pos.x, pos.y + (test? 1 : 0), pos.z);
             if (test){
-                ss.setDamage((double) slashBladeState.getRefine() * 0.035 * (slashBladeState.getProudSoulCount() * 0.0003 ));
+                ss.setDamage((double) slashBladeState.getRefine() * 0.035  );
 
             }else {
-                ss.setDamage((double) slashBladeState.getRefine() * 0.05f * (slashBladeState.getProudSoulCount() * 0.0003 ));
+                ss.setDamage((double) slashBladeState.getRefine() * 0.05f  );
             }
             Vec3 dir = targetPos.subtract(pos).normalize();
             if (test) {

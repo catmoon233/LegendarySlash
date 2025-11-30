@@ -112,7 +112,7 @@ public class FallenStarEntity extends EntityDrive implements ITrailConfigProvide
                     double distance = entity.distanceTo(this);
                     if (distance <= radius) {
                         // 造成伤害，伤害随距离增加而减少
-                        float damage = (float) (3f*(20.0+((LivingEntity) owner).getAttributeValue(Attributes.ATTACK_DAMAGE))*slashBlade.getRefine()*0.02 *slashBlade.getProudSoulCount()*0.0002* (1.0 - distance / radius));
+                        float damage = (float) (3f*(20.0+((LivingEntity) owner).getAttributeValue(Attributes.ATTACK_DAMAGE))*slashBlade.getRefine()*0.02 * (1.0 - distance / radius));
                         livingEntity.hurt(new DamageSource(owner.level().registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MAGIC), owner), damage);
 
 

@@ -131,7 +131,7 @@ public class StarDashSa extends CareerSkill {
             trackTailEntity.setPos(x, y, z);
             trackTailEntity.setOffset(new Vec3(v, v1, v2));
             trackTailEntity.setOwner(livingEntity);
-            trackTailEntity.setDamage((double) bladeState.getRefine() * 0.07f * (bladeState.getProudSoulCount() * 0.0001 ));
+            trackTailEntity.setDamage((double) bladeState.getRefine() * 0.15f );
             trackTailEntity.setRoll(0);
             trackTailEntity.setDelay(2);
             trackTailEntity.setIsCritical(false);

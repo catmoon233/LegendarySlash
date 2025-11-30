@@ -14,7 +14,8 @@
     "special_effects": [
       "rough_blade:starry_sky",
       "rough_blade:the_star_power",
-      "rough_blade:the_weak_power"
+      "rough_blade:the_weak_power",
+      "rough_blade:refine_up"
     ],
     "sword_type": [
       "bewitched"

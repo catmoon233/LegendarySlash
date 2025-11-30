@@ -17,12 +17,5 @@ public class TheWaningMoonSe extends SpecialEffectEx {
         super(requestLevel);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void tooltipRender(RenderTooltipEvent.Color event){
-        if (event.getItemStack().getItem() instanceof ItemSlashBlade){
-            if (SpecialEffectEx.hasSpecialEffect(event.getItemStack(), RBSpecialEffectRegistry.The_Waning_Moon.getId())) {
-                event.setBackground(Color.WHITE.getRGB());
-            }
-        }
-    }
+
 }

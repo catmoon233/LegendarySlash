@@ -27,19 +27,21 @@ public class RBSpecialEffectRegistry {
     //extra
     public static final RegistryObject<SpecialEffect> The_Star_Power;
     public static final RegistryObject<SpecialEffect> The_Weak_Power;
+    public static final RegistryObject<SpecialEffect> Refine_Up;
     public RBSpecialEffectRegistry() {
     }
 
     static {
         REGISTRY_KEY2 = DeferredRegister.create(SpecialEffect.REGISTRY_KEY, Rough_blade.MODID);
         STAR_FIRE = REGISTRY_KEY2.register("star_fire", StarFireSE::new);
-        MingLi = REGISTRY_KEY2.register("ming_li",MingLiSe::new );
+        MingLi = REGISTRY_KEY2.register("ming_li", MingLiSe::new);
         StarrySky = REGISTRY_KEY2.register("starry_sky", () -> new StarrySkySE(0));
         The_Waning_Moon = REGISTRY_KEY2.register("the_waning_moon", () -> new TheWaningMoonSe(0));
         The_Star_Power = REGISTRY_KEY2.register("the_star_power", () -> new SpecialEffect(0));
         The_Weak_Power = REGISTRY_KEY2.register("the_weak_power", () -> new SpecialEffect(0));
-    }
+        Refine_Up = REGISTRY_KEY2.register("refine_up", () -> new SpecialEffect(0));
 
+    }
     @Mod.EventBusSubscriber
     public class extraEffects{
         @SubscribeEvent
