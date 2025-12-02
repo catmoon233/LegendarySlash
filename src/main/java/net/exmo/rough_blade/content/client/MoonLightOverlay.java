@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber({Dist.CLIENT})
+@Mod.EventBusSubscriber(Dist.CLIENT)
 public class MoonLightOverlay {
     @SubscribeEvent
     public static void render(RenderGuiEvent.Post event) {

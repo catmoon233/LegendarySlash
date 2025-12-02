@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Mod.EventBusSubscriber({Dist.CLIENT})
+@Mod.EventBusSubscriber(Dist.CLIENT)
 public class ExSkillOverlay {
 	static int screenHeight;
     static int screenWidth;

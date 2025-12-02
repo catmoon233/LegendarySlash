@@ -47,7 +47,7 @@ public class RBSpecialEffectRegistry {
         @SubscribeEvent
         public static void OnHurt(LivingHurtEvent event){
             if (event.getSource().getEntity() instanceof LivingEntity livingEntity){
-                 var mainHandItem = livingEntity.getMainHandItem();
+                // var mainHandItem = livingEntity.getMainHandItem();
                     SpecialEffectEx.hurtEventHandleSe(event, (player, entity,slashBladeState) -> {
                         if (entity.level().isDay() && entity.level().canSeeSky(entity.blockPosition())){
                             SpecialEffectEx.hurtEventAmountBase(event,-0.9f);

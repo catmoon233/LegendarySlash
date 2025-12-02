@@ -100,14 +100,7 @@ public class StarrySkySE extends SpecialEffectEx {
             }
         }
     }
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void tooltipRender(RenderTooltipEvent.Color event){
-        if (event.getItemStack().getItem() instanceof ItemSlashBlade ){
-            if (SpecialEffectEx.hasSpecialEffect(event.getItemStack(), RBSpecialEffectRegistry.StarrySky.getId())) {
-                event.setBackground(Color.blue.getRGB());
-            }
-        }
-    }
+
 //    @SubscribeEvent(priority = EventPriority.HIGHEST)
 //    public static void tooltipRender2(RenderTooltipEvent.Pre event){
 //        if (event.getItemStack().getItem() instanceof ItemSlashBlade ){
